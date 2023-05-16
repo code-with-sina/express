@@ -1,0 +1,85 @@
+.bg-dark {
+    background-color: #181C1F !important;
+}
+
+.celt {
+    width: 100%; 
+    font-size: x-large;
+    text-align: left; 
+    height: 30px;
+    margin: 10px 0 20px;
+    transition: width 2s; 
+}
+
+.celt span {
+    padding-right: 15px;
+}
+
+.celt:hover {
+    border-bottom: 2px solid rgb(243, 243, 243); 
+}
+
+#small {
+    font-size: xx-small !important;
+}
+
+
+.exchange {
+    background: linear-gradient(92.42deg, #0CCDA3 0.59%, #3AFF4E 55.84%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    /* text-fill-color: transparent; */
+}
+
+.calt {
+    cursor: pointer;
+}
+
+
+.calt:hover {
+    font-size: 24px !important;
+    font-weight: bolder !important;
+    color: white;
+}
+
+.calt:hover span{
+    font-size: 24px !important;
+    font-weight: bolder !important;
+    color: white;
+}
+
+.rateimage {
+    cursor: pointer; 
+}
+
+.rateimage:hover {
+    /*padding: 10px;*/
+    background-color: rgba(57, 48, 53, 0.0462) !important;
+    /*box-shadow: 1px 3px 2px #888888;*/
+}
+
+.rateimage:hover span {
+     /*background-color: rgba(57, 48, 53, 0.36) !important;*/
+    font-size: 18px !important;
+}
+
+
+.sell {
+   cursor: pointer;  
+}
+
+.sell:hover {
+    font-size: 18px;
+    background: rgb(27,113,10);
+    background: linear-gradient(90deg, rgba(27,113,10,1) 0%, rgba(80,161,38,1) 47%, rgba(0,255,29,1) 100%);
+}
+
+@media (min-width: 345px) {
+    .exchange-card{
+        height: 330px !important;
+    }
+}
+
+
+

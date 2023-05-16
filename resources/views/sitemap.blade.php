@@ -1,0 +1,79 @@
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://ratefy.co</loc>
+        <lastmod>2023-01-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://ratefy.co/about</loc>
+        <lastmod>2023-01-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://ratefy.co/terms</loc>
+        <lastmod>2023-01-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://ratefy.co/legal</loc>
+        <lastmod>2023-01-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://ratefy.co/fees</loc>
+        <lastmod>2023-01-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://ratefy.co/blog</loc>
+        <lastmod>2023-01-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://ratefy.co/category/freelance</loc>
+        <lastmod>2023-01-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://ratefy.co/category/account</loc>
+        <lastmod>2023-01-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://ratefy.co/article/how-to-receive-dollars-in-nigeria-using-payoneer-and-exchange-it-at-black-market-rate</loc>
+        <lastmod>2023-01-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://ratefy.co/article/4-ways-to-exchange-your-dollar-to-naira-at-black-market-rate</loc>
+        <lastmod>2023-01-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://ratefy.co/article/4-signs-that-shows-you-payoneer-exchanger-is-cheating-you-withdraw-your-payoneer-at-the-highest-exchange-rate</loc>
+        <lastmod>2023-01-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+    @foreach ($posts as $post)
+        <url>
+            <loc>{{ url('/') }}/post/{{ $post->post_slug }}</loc>
+            <lastmod>{{ $post->created_at->tz('UTC')->toAtomString() }}</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>0.8</priority>
+        </url>
+    @endforeach
+
+    
+</urlset>

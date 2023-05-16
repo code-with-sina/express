@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500;600;700;800&family=Rubik:wght@400;500;600;700;800;900&display=swap');
+
+
+:root {
+    --primaryTextColor: #00B172; 
+    --footerSecondaryTextColor: #AFB5C0;
+    --footerCopyRightColor: #AFB5C0;
+    --secondaryBackgroundColor: #21272A;
+    --primaryBackgroundColor: #181C1F;
+    --navblock: #3B454A;
+    --paragraphFonts: font-family: 'Rubik', sans-serif;
+    --dark: #0C0E0F;
+    --navbar: #181C1F;
+    --dashboard-sidebar: #21272A;
+    --dashboard-icon-frame: #30383D;
+    --dashboard-navbar-bg: #0C0E0F;
+    --dashboard-right-sidebar: #CCCCCC;
+    --dashboard-right-sidebar-bg: #21272A;
+    --dashboard-paragraph-color: #BBBBBB;
+    --dashboard-active-navbar: #D1D1D6;
+    --dashboard-active-navbar-light: #737373;
+    --thin-line: #2E2E2E;
+    --activityStatus: #9C4545;
+    --activityTimer: #737373;
+    --activityBackgroundStatus: #21272A;
+    --currency-protocall-color: #505050;
+    --currency-protocall-bg-color: #D4D8E2;
+    --rest-span-box: #EAEAEA;
+
+}
+
+
+.message-right {
+    padding: 10px 15px !important;
+    /* border: 1px solid #3AFF4E !important; */
+    border-top-right-radius: -16px !important;
+    border-bottom-right-radius: 16px !important;
+    border-bottom-left-radius: 16px !important;
+    border-top-left-radius: 16px !important;
+    background-color: var(--dark) !important;
+    color: #fff; 
+}
+
+.message-left {
+    padding: 10px 15px !important;
+    /* border: 1px solid #3AFF4E !important; */
+    border-top-right-radius: 16px !important;
+    border-bottom-right-radius: 16px !important;
+    border-bottom-left-radius: 16px !important;
+    border-top-left-radius: -16px 0 !important;
+    background-color: var(--primaryTextColor) !important;
+    color: #fff;
+}

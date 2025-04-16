@@ -17,6 +17,7 @@ class AwaitingPaymentConfirmation extends Mailable
     public $name;
     public $transactionId;
     public $amount;
+    public $wallet;
     public $created;
     public $signature;
     public $complement;
@@ -26,12 +27,13 @@ class AwaitingPaymentConfirmation extends Mailable
      *
      * @return void
      */
-    public function __construct($name, $transactionId, $amount, $created)
+    public function __construct($name, $transactionId, $amount, $wallet, $created)
     {
         //
         $this->name = $name;
         $this->transactionId = $transactionId;
         $this->amount   = $amount;
+        $this->wallet = $wallet;
         $this->created = $created;
         $this->signature    =  env('APP_SIGNATURE');
         $this->complement   = 'Thank you';
@@ -63,6 +65,7 @@ class AwaitingPaymentConfirmation extends Mailable
                 'name'          => $this->name,
                 'transactionId' => $this->transactionId,
                 'amount'        => $this->amount,
+                'wallet'        => $this->wallet,
                 'date'          => $this->created,
                 'signature'     => $this->signature,
                 'complement'    => $this->complement

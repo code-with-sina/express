@@ -22,12 +22,11 @@
                         <label for="staticEmail" class="col-sm-12 col-form-label  dashboard-timer">Bank Name</label>
                         <div class="col-sm-12">
                             <select class="form-control dashboard-timer dashboard-activity-box" id="getdatas" wire:model='bank_name'>
-                                @foreach ($banks['data'] as $bankProtocol)
-                                   <option value="{{ $bankProtocol['code'] }} {{ $bankProtocol['name'] }}">
-                                    
-                                 {{$bankProtocol['name'] }}</option>
-                                
+                                <option> SELECT BANK </option>
+                                @foreach($banks  as $bank)
+                                    <option value="{{ $bank->uuid }} {{ $bank->nipcode }}"> {{ $bank->name }} </option>
                                 @endforeach
+                                
                             </select>
                             @error('bank_name')
                                 <span class="text-danger">
@@ -61,7 +60,10 @@
             <div class="row justify-content-end">
                 <div class="col-10 col-md-10 col-lg-10">
                     <div class="d-grid">
-                        <button type="submit" class="btn buttonSecondary">Verify</button>
+                        <button type="submit" class="btn buttonSecondary" onclick="loader()">
+                            <span id="loading" class="visually-hidden spinner-grow spinner-grow-sm text-light" role="status" aria-hidden="true"></span>
+                            <span id="makechange">Verify</span>
+                        </button>
                     </div>
                     
                 </div>
@@ -73,17 +75,11 @@
  
  
  <script>
-    // function getData() {
-    //     var selectBox = document.getElementById("getdatas");
-    //     var giveBox = document.getElementById("giveData");
-    //     var giveMox = document.getElementById("giveMata");
-    //     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-    //     var taker = selectedValue.split(' ');
-    //     giveMox.value = taker.shift();
+    function loader() {
+        var loader = document.getElementById("loading");
+        var changeText = document.getElementById("makechange");
+        loader.classList.remove("visually-hidden");
+        changeText.textContent = "Loading...";
+    }
         
-    //     giveBox.value = taker.join(" ");
-    //     console.log(taker.join(" "));
-       
-    // }     
-     
  </script>

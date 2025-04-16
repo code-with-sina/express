@@ -22,6 +22,9 @@
                 <li class="nav-item">
                     <a href="{{ route('fees') }}" class="nav-link">Fees</a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('howto') }}" class="nav-link">How to's</a>
+                </li>
             </ul>
         </div>
       </div>

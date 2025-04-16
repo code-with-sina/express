@@ -8,29 +8,14 @@ const newId = document.getElementById('session_id');
 const sessionId = newId.innerHTML;
 let messageDB = [];
 
-// const resp = await axios.post('/users/chatsubscription', { data: userId});
-// sessionId = resp.data;
-// console.log(sessionId.trim());
-// const gateway = Echo.join(`gateway.pay.${sessionId.trim()}`);
-// gateway.here((user) => {
-//     console.log(user);
-//     console.log('subscribe');
-//     // console.log(source);
-
-// }).joining(() => {
-//     console.log('gateway joining');
-// }).leaving(() => {
-//     console.log('gateway leaving');
-// }).listen('pay',(event)=> {
-//     console.log(event);
-
-//         // window.location.href = `express-transaction?message=${sessionId.trim()}`;
-
-// });
+axios.defaults.withCredentials = true;
 
 const channel = Echo.join(`presence.chat.${sessionId.trim()}`);
 
+
 channel.here((users) => {
+    console.log('subed');
+    
     axios.post('/users/express/transaction/chat/history', {
         user_id: parseInt(userId.trim()),
         session_id: sessionId.trim()
@@ -50,7 +35,7 @@ channel.here((users) => {
                 const messageDiv = document.createElement("div");
                 messageDiv.classList.add("message-left");
                 
-                imageDiv.innerHTML = '<img src="http://127.0.0.1:8000/front/image/Payoneer.png" alt="" srcset="">';
+                imageDiv.innerHTML = '<img src="https://ratefy.co/front/image/customer-care.png" height="23" alt="" srcset="">';
             
                 outCoverDiv.appendChild(distributorDiv);
                     distributorDiv.appendChild(imageDiv);
@@ -68,7 +53,7 @@ channel.here((users) => {
                 const inMessageDiv = document.createElement("div");
                 inMessageDiv.classList.add("message-right");
             
-                        inImageDiv.innerHTML = '<img src="http://127.0.0.1:8000/front/image/Payoneer.png" alt="" srcset="">';
+                        inImageDiv.innerHTML = '<img src="https://ratefy.co/front/image/client-profile.png" height="23" alt="" srcset="">';
                         inCoverDiv.appendChild(inDistributorDiv);
                         inDistributorDiv.appendChild(inMessageCoverDiv);
                         inDistributorDiv.appendChild(inImageDiv);
@@ -85,10 +70,15 @@ channel.here((users) => {
             } 
         }
     });
+
+    
 }).joining((user) => {
-    console.log('join');
+    onlineChecker.textContent = 'online';
+    
 }).leaving((user) => {
-    console.log('leave');
+    onlineChecker.textContent = 'wait a minute';
+    onlineChecker.addClass = "text-danger";
+    
 }).listen('.chat-message', (event) => {
     console.log(event);
     if(event.message == 'paid'){
@@ -108,7 +98,7 @@ channel.here((users) => {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("message-left");
         
-        imageDiv.innerHTML = '<img src="http://127.0.0.1:8000/front/image/Payoneer.png" alt="" srcset="">';
+        imageDiv.innerHTML = '<img src="https://ratefy.co/front/image/customer-care.png" height="23" alt="" srcset="">';
     
         outCoverDiv.appendChild(distributorDiv);
             distributorDiv.appendChild(imageDiv);
@@ -127,7 +117,7 @@ channel.here((users) => {
         const inMessageDiv = document.createElement("div");
         inMessageDiv.classList.add("message-right");
     
-                inImageDiv.innerHTML = '<img src="http://127.0.0.1:8000/front/image/Payoneer.png" alt="" srcset="">';
+                inImageDiv.innerHTML = '<img src="https://ratefy.co/front/image/client-profile.png" height="23" alt="" srcset="">';
                 inCoverDiv.appendChild(inDistributorDiv);
                 inDistributorDiv.appendChild(inMessageCoverDiv);
                 inDistributorDiv.appendChild(inImageDiv);
@@ -152,25 +142,41 @@ channel.here((users) => {
         } 
 
         
+}).listenForWhisper('typing', (event) => {
+    spanTyping.textContent = event.email + ' is typing...';
+}).listenForWhisper('stop-typing', (event) => {
+    spanTyping.textContent = " ";
 });
 
-
-
-
-let saveData = localStorage.getItem("transactionData");
-// localStorage.clear('transactionData');
-messageDB.length < 1 ? messageDB.push(JSON.parse(saveData)) : messageDB;
-// console.log(JSON.parse(saveData));
 
 
 const form = document.getElementById('form');
 const inputMessage = document.getElementById('input-message');
 const listMessage = document.getElementById('list-message');
 const sender = document.getElementById('send');
+const spanTyping = document.getElementById('span-typing');
+const onlineChecker =  document.getElementById('online'); 
+let cancelPay   = document.getElementById('cancelPay');
 
+onlineChecker.textContent = 'wait a minute';
+inputMessage.addEventListener('input', function(){
+    if(inputMessage.value.length == 0){
+        channel.whisper('stop-typing', {
+            email: 'seller'
+        });
+    }else{
+        channel.whisper('typing', {
+            email: 'seller'
+        });
+    }
+    
+});
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
+    channel.whisper('stop-typing', {
+        email: 'seller'
+    });
     const userInput = inputMessage.value;
 
     axios.post('/users/chat-message', {
@@ -189,4 +195,15 @@ sender.addEventListener('click', (event) => {
         sessionId: sessionId.trim()
     });
     inputMessage.value = '';
+});
+
+cancelPay.addEventListener('click', () => {
+    axios.post('/users/cancel-payment/cancelled', {
+        session: sessionId.trim()
+    }).then((response) => {
+    
+        if( response.status == 200){
+            window.location.href = '/users/activity';
+        }
+    });
 });

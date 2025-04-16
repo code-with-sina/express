@@ -32,7 +32,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 dashboard-timer">
-                <p>CityTown</p>
+                <p>City / Town</p>
             </div>
             <div class="col-md-4">
                 <p> {{ __($props->city ?? '') }} </p>
@@ -117,7 +117,7 @@
     </div>
     <div class="row">
         <div class="col-md-4 dashboard-timer">
-            <p>CityTown</p>
+            <p>City / Town</p>
         </div>
         <div class="col-md-4">
             <p> {{ __($props->state ?? '' ) }} </p>

@@ -58,15 +58,15 @@
                             
                             <select class="form-select dashboard-timer dashboard-activity-box" aria-label="Select Category" name="category">
                                 <option selected value="{{ $props->category ?? '' }}">{{ $props->category ?? '' }}</option>
-                                <option value="graphic-designs-others">Graphic Designs | others</option>
-                                <option value="marketing-others">Digital Marketing | others</option>
-                                <option value="writing-others">Writing | others</option>
-                                <option value="video-animation-others">Video and Animation | others</option>
-                                <option value="music-audio-others">Music | others</option>
-                                <option value="programming-others">Programming | others</option>
-                                <option value="photography-others">Photograpgy | others</option>
-                                <option value="businesses-others">Business | others</option>
-                                <option value="ai-services-others">AI Services  | others</option>
+                                <option value="graphic-designs-others">Graphic Designs </option>
+                                <option value="marketing-others">Digital Marketing </option>
+                                <option value="writing-others">Writing </option>
+                                <option value="video-animation-others">Video and Animation </option>
+                                <option value="music-audio-others">Music </option>
+                                <option value="programming-others">Programming </option>
+                                <option value="photography-others">Photograpgy </option>
+                                <option value="businesses-others">Business </option>
+                                <option value="ai-services-others">AI Services </option>
                               </select>
                         </div>
                     </div>

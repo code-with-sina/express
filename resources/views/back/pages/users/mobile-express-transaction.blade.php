@@ -13,16 +13,14 @@
 
     <link rel="stylesheet" href="{{ asset('owlcarousel/dist/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('owlcarousel/dist/assets/owl.theme.default.min.css') }}">
-    @vite(['resources/js/app.js', 'resources/js/client-express-chat.js'])
+    @vite(['resources/js/app.js', 'resources/js/client-express-chat.js', 'resources/js/client-chat-notification.js'])
     <livewire:styles />
     
 </head>
-<body class="bg-ratefy-primary">
+<body class="bg-ratefy-primary w-100 p-0 m-0">
 
-    <span class="invisible" id="session_id">
-        {{ $sessionid }}
-    </span>
-    <main class="container-fluid text-white mx-0 my-0 py-0 px-0">
+    
+    <main class="container-fluid text-white mx-0 my-0 py-0 px-0" style="overflow-x: hidden !important;">
         {{-- Navigation --}}
         <div class="continer-fuild">
             <div class="flex">
@@ -30,52 +28,71 @@
                     <div class="d-flex justify-content-start my-2 py-2">
                         <a href="{{ route('users.home') }}" class="text-white"><i class="bi bi-arrow-left expressTransaction-navigation"></i></a>
                     </div>
-                    <div class="d-flex py-4">
+                    <div class="d-flex py-4 w-25">
                         <span class="d-flex justify-content-center text-nav pt-md-2">Home</span>
+                        <span class="invisible" id="session_id">
+                            {{ $sessionid }}
+                        </span>
                     </div>   
                 </div>
             </div>
         </div>
         {{-- Status and CountDown --}}
-        <livewire:express-transaction-top-status>
+        <livewire:mob-express-transaction-top-status>
         @php 
             $props = App\Models\ExpressTransaction::where('order_id', $sessionid)->first();
         @endphp
         {{-- Main Activity --}}
-        <div class="container-fluid">
+        <div class="container-fluid ">
             <div class="container px-0 px-sm-0 px-md-5 py-5">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="container-fluid">
                             <div class="row">
 
                                 <div class="col-12 px-0 mb-3">
                                     <livewire:express-transaction-bar>
                                 </div>
-
+                                <div class="col-12 mb-3">
+                                    <h5 class="order-info">CountDown </h5>
+                                    <div id="countedTime">
+                                        <span id="hours" class="boxes">
+                                        </span>
+                                        <span id="minutes" class="boxes">
+                                        </span>
+                                        <span id="seconds" class="boxes">
+                                        </span>
+                                    </div>
+                                </div>
                                 <div class="col-12 my-1">
                                     <h4 class="order-info">Order Info</h4>
                                     <div class="card rounded-2 text-dark">
                                         <div class="card-body px-2 px-sm-2 px-md-5 py-3">
                                             <div class="row p-0 m-0 mb-2">
                                                 <div class="col-1 px-0 py-1">
-                                                    <img src="{{ asset('front/image/Payoneer.png') }}" alt="" class="card-order-info">
+                                                    @php
+                                                        $image = \App\Models\ExchangeItem::where('id', $props->wallet_id)->first();
+                                                    @endphp
+                                                    <img src="/storage/images/exchange_images/thumbnails/thumb_{{ $image->image_path ?? '' }}" alt="" class="card-order-info">
                                                 </div>
-                                                <div class="col-3 px-0 ms-1">
+                                                <div class="col-3 px-0 m-0">
                                                     <span class="fw-bold order-card-item">
                                                         {{ $props->wallet_name}}
                                                     </span>
                                                    
                                                 </div>
                                                 <div class="col-3 px-0 py-1">
-                                                    <span class="exchange-rate-dashboard-subtitle">
-                                                        Transfer
+                                                    <span class="exchange-rate-dashboard-subtitle m-0">
+                                                        {{ $image->labels }}
                                                     </span>
                                                     
                                                 </div>
                                                 <div class="col-4 px-0">
                                                     <span class="order-card-amount p-0">
-                                                        ₦  {{   __($props->conversion_amount / $props->wallet_amount)}}
+                                                        @php
+                                                        $percentage = $props->conversion_amount / $props->wallet_amount;
+                                                    @endphp
+                                                    ₦ {{ number_format($percentage, 2) }}
                                                     </span>
                                                     
                                                 </div>
@@ -86,11 +103,11 @@
                                                     <div class="row">
                                                         <div class="col-5 my-2">
                                                             <span class="order-card-send-title"> Amount to send </span>
-                                                            <span class="order-card-send-amount">${{ $props->wallet_amount}}.00</span>
+                                                            <span class="order-card-send-amount">${{ number_format($props->wallet_amount, 2)}}</span>
                                                         </div>
                                                         <div class="col-6 my-2">
                                                             <span class="order-card-send-title"> Amount to send </span>
-                                                            <span class="order-card-send-amount">₦{{ $props->conversion_amount}}.00</span>
+                                                            <span class="order-card-send-amount">₦{{ number_format($props->conversion_amount, 2)}}</span>
                                                         </div>
                                                         <div class="col-12 my-2">
                                                             <span class="order-card-send-title"><i class="bi bi-bank2 text-ratefy"></i> Bank Account </span>
@@ -104,39 +121,56 @@
                                     </div>
                                 </div>
                                 <livewire:seller-note>
+
+                                @if(@$image->google_form !== null)
+                                    <div class="col-12 my-2">
+                                        <h4 class="seller-note">Additional Requirement</h4>
+                                        <a target="_blank" href="{{ $image->google_form ?? '' }}" class="btn buttonSecondary py-2 dashboard-calculator-note-button-text agreed"> Google form <i class="bi bi-google"></i></a>
+                                    </div>
+                                @endif
                                 <div class="col-12 my-2">
                                     <h4 class="seller-note">Prove of Payment</h4>
                                     <div class="border border-secondary rounded-1  px-0 px-sm-0 px-md-3 py-2">
-                                        <span>
-                                            <form id="file_form" enctype="multipart/form-data">
-                                                <label for="upload-photo"><i class="bi bi-paperclip"></i></label>
-                                                <input type="file" name="" id="upload-photo">
-                                                <button class="btn btn-secondary rounded-5" id="submitpop">Submit prove</button> 
-
+                                        <form id="file_form" enctype="multipart/form-data">
+                                            <label for="upload-photo"><i class="bi bi-paperclip fs-4"></i></label>
+                                            <input type="file" name="" id="upload-photo">
+                                            
+                                            <small id="pop_path" class="text-white" style="font-size: 12px !important;"> 
                                                 @if ($props->pop_path !== null)
-                                                <span id="pop_path">{{ $props->pop_path }}</span>
-                                                @endif
-                                                
-                                            </form>
-                                        </span>
+                                                    {{ $props->pop_path }}
+                                                @endif    
+                                            </small>
+                                            
+                                            <button class="btn btn-secondary my-0 rounded-5 @if ($props->pop_path !== null)
+                                                    invisible
+                                                @endif float-end" id="submitpop">Submit prove</button> 
+                                        </form>
                                     </div>
                                 </div>
+
                                 <div class="col-12 my-2">
                                     <div class="row">
                                         <div class="col-4 d-grid">
-                                           <button class="btn btn-secondary rounded-5 py-1 order-card-button">CANCEL</button> 
+                                           <button class="btn btn-secondary rounded-5 py-1 order-card-button" id="cancelPay">CANCEL</button> 
                                         </div>
                                         <div class="col-8 d-grid">
-                                            <button class="btn btn-success rounded-5 py-1 order-card-button" id="madePay">I’VE MADE PAYMENT </button> 
+                                            <button class="btn @if ($props->seller_payment_approval == 0) btn-success @else btn-secondary @endif  rounded-5 py-1 order-card-button  @if ($props->seller_payment_approval !== 0)
+                                                    disabled
+                                                @endif" id="madePay">I’VE MADE PAYMENT </button> 
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="alert alert-success text-center" role="alert">
+                                      <p>
+                                      Kindly use the chat button above for communication about this transaction. Please, only use the whatsapp button below if the chart system on this page is not working.
+                                    </p>
+                                    <a target="_blank" href="{{ $image->whatsapp ?? '' }}" class="btn buttonSecondary py-2 dashboard-calculator-note-button-text agreed"> Continue on whatsapp <i class="bi bi-whatsapp"></i></a>
+                                    <!-- <a target="_blank" href="https://wa.link/vyksey" class="btn buttonSecondary py-2 dashboard-calculator-note-button-text agreed"> Continue on whatsapp <i class="bi bi-whatsapp"></i></a> -->
+                                
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12 py-3">
-                       
-                      {{-- <livewire:express-chat-congrat-activity> --}}
                     </div>
                 </div>
             </div>
@@ -205,50 +239,57 @@
                 </div>
             </div> 
         </div>
-            <!-- Full screen modal -->
-        <div class="modal modal-sm" 
-                    id="chat-modal" 
-                tabindex="1" 
-
-            aria-labelledby="modal-title"
-        aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content border border-success text-dark rounded-4 my-auto" style="">
-                    <div class="modal-header p-2">
-                        <div class="modal-title">
-                            
-                            <small>{{ auth()->user()->username}}</small>
-                            
-                        </div>
-                        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="list-message" style="height: 82vh; overflow-y:auto;">
-
-                    </div>
-                    <div class="modal-footer">
-                        <form id="form">
-                            <div class="input-group">
-                                <input type="text" class="form-control border-0" id="input-message" name="message" placeholder="start type..." autofocus autocomplete="off">
-                                <span class="input-group-text bg-white border border-0 common" id="send"><i class="bi bi-send text-ratefy"></i></span>
-                                <span class="input-group-text bg-white border border-0 common" id="upload"><i class="bi bi-paperclip text-ratefy"></i></span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <span class="invisible" id="session_id">
-                {{ $sessionid }}
-            </span>
-            <div id="node_id" class="invisible">
-                {{ auth()->user()->id }}
-            </div>
-            <div class="invisible" id="user_id">
-                {{ auth()->user()->id }}
-            </div>
-        </div>
+           
+        
     </main>
+     <!-- Full screen modal -->
+    <div class="modal" id="chat-modal" tabindex="1" aria-labelledby="modal-title" aria-hidden="true">
 
+        <div class="modal-dialog">
 
+            <div class="modal-content border border-success text-dark rounded-4 my-auto" style="">
+
+                <div class="modal-header p-2">
+                    <div class="row w-100">
+                        <div class="col-11 m-0">
+                            <div class="modal-title">
+                            <small>{{ auth()->user()->username}}</small>
+                            <span id="online" class="ms-2 text-success"></span>
+                            </div>
+                        </div>
+                        <div class="col-1 m-0 py-1">
+                            <button type="button" class="btn-close btn-sm text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-body" id="list-message" style="height: 68vh; overflow-y:auto;">
+
+                </div>
+                <div class="modal-footer w-100 px-1">
+                    <form id="form" class="px-0 w-100 py-0">
+                        <em><span id="span-typing" class="m-2 text-success"></span></em>
+                        <div class="input-group w-100 px-0">
+                            <input type="text" class="form-control border-0" id="input-message" name="message" placeholder="start type..." autofocus autocomplete="off">
+                            <span class="input-group-text bg-white border border-0 common" id="send"><i class="bi bi-send text-ratefy"></i></span>
+                        </div>
+                    </form>
+                    <span class="invisible" id="session_id">
+                        {{ $sessionid }}
+                    </span>
+                    <span id="node_id" class="invisible">
+                        {{ auth()->user()->id }}
+                    </span>
+                    <span class="invisible" id="user_id">
+                        {{ auth()->user()->id }}
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
     <livewire:scripts />
@@ -259,11 +300,12 @@
         let fileForm    = document.getElementById('file_form');
         let file        = document.querySelector('#upload-photo').files;
         let madePay     = document.getElementById('madePay');
+        let cancelPay   = document.getElementById('cancelPay');
         let popPath     = document.getElementById('pop_path');        
         
         fileForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            axios.post('pop-payment/prove', {
+            axios.post('/users/pop-payment/prove', {
                 image: document.querySelector('#upload-photo').files[0],
                 session: "{{ __($props->order_id) }}"
             }, {
@@ -271,15 +313,34 @@
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((response) => {
-                if(response.status == 200){
+                if(response.status === 200){
                     popPath.innerHTML = response.data.msg;
+                    submitPop.classList.add("invisible");
                 }
+                console.log(response.status);
                 console.log(response.data.msg);
             });
         });
 
         madePay.addEventListener('click', () => {
-            axios.post('pop-payment/approval', {
+            axios.post('/users/pop-payment/approval', {
+                session: "{{ __($props->order_id) }}"
+            }, {
+                 headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then((response) => {
+                madePay.classList.remove("btn-success");
+                madePay.classList.add("btn-secondary");
+                madePay.classList.add("disabled");
+                
+                console.log(response.status);
+            });
+        });
+
+
+        cancelPay.addEventListener('click', () => {
+            axios.post('/users/cancel-payment/cancelled', {
                 session: "{{ __($props->order_id) }}"
             }, {
                  headers: {
@@ -287,50 +348,48 @@
                 }
             }).then((response) => {
                 
-                console.log(response.status);
+                if( response.status == 200){
+                    window.location.href = '/users/activity';
+                }
             });
         });
 
-
     </script>
     <script>
-        ;(function($) {
-     
-            var MERCADO_JS = {
-                init: function(){
-                    this.mercado_countdown();
-                }, 
-                mercado_countdown: function() {
-                if($(".mercado-countdown").length > 0){
-                        $(".mercado-countdown").each( function(index, el){
-                        var _this = $(this),
-                        _expire = _this.data('expire');
-                        _this.countdown(_expire, function(event) {
-                            $(this).html( event.strftime('<span><span class="boxes">%-H</span> : <span class="boxes">%M</span> : <span class="boxes">%S</span>'));
-                            console.log(event);
-                        });
-                    });
-                }
-            },
-    
-        }
-    
-      window.onload = function () {
-         MERCADO_JS.init();
-      }
-    
-      })(window.Zepto || window.jQuery, window, document);
+        $(document).ready(function () {
+            let popFile =   document.getElementById("upload-photo");
+            popFile.addEventListener("change", function(){
+            if(popFile.files.length == 0 ){
+                    console.log("no files selected");
+                }else{
+                    $("#pop-path").text(popFile.files[0].name); 
+                                         
+                }  
+            });
+        }); 
+        
     </script>
-    {{-- <script>
-        function checkDevice (){
-         let width = window.innerWidth;
-         let height = window.innerHeight;
-
-         if(width < 400 && height < 800) {
-            alert('hello world');
-         }
-        }
-        checkDevice();
-     </script> --}}
+    <script>
+        var count_id = "{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $props->express_binding_detail_end_time) }}";
+        var countDownDate = new Date(count_id).getTime();
+        var x = setInterval(function(){
+            var  now = new Date().getTime();
+            var distance = countDownDate - now;
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance %(1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance %(1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance %(1000 * 60)) / (1000));
+            document.querySelector("#hours").innerText = hours;
+            document.querySelector("#minutes").innerText = minutes;
+            document.querySelector("#seconds").innerText = seconds;
+            if(distance < 0) {
+                clearInterval(x);
+                document.querySelector("#hours").innerText = '';
+                document.querySelector("#minutes").innerText = '';
+                document.querySelector("#seconds").innerText = '';
+                document.querySelector("#countedTime").innerText = "TRANSACTION DURATION EXPIRED";
+            }
+        }, 1000);
+    </script>
 </body>
 </html>

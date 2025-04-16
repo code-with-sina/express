@@ -4,6 +4,10 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use Livewire\Component;
+use Nette\Utils\Random;
+use App\Mail\Registration;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
 class UsersLogin extends Component
@@ -24,10 +28,10 @@ class UsersLogin extends Component
                     'password' => 'required|min:5' 
                 ],
                 [
-                    'login_id'          => 'Email or Username is required',
-                    'login_id.emai'     => 'Invalid email address',
-                    'login_id.exists'   => 'Email is not registered',
-                    'password.required' => 'password is required'
+                    'login_id'           => 'Email or Username is required',
+                    'login_id.email'     => 'Invalid email address',
+                    'login_id.exists'    => 'Email is not registered',
+                    'password.required'  => 'password is required'
                 ]
             );
         }else{
@@ -38,7 +42,7 @@ class UsersLogin extends Component
                 ],
                 [
                     'login_id.required'     => 'Email or Username is required',
-                    'login_id.exists'     => 'Username is not registered',
+                    'login_id.exists'       => 'Username is not registered',
                     'password.required'     => 'Password is required'    
                 ]
             );
@@ -54,8 +58,17 @@ class UsersLogin extends Component
                 return redirect()->route('users.login')->with('fail', 'Your account has been blocked');
             }else{
                 if($checkuser->activate < 1){
-                     Auth::guard('web')->logout();
-                return redirect()->route('users.login')->with('fail', 'Your account is not activated yet');
+
+                    $default_emailcode = md5(Hash::make($checkuser->username));
+                    User::where('id', $checkuser->id)->update(['emailcode' => $default_emailcode]);
+                    $body = 'You registered an account on '. env('APP_URL').', before being  able to use your account you need to verify that this is your email address by clicking the button bellow';
+                    $url = "https://ratefy.co/users/activate/".$default_emailcode;
+                    $complement = 'Kind Regards';
+
+                    Mail::to($checkuser)->send(new Registration($checkuser->name, $url, $body, $complement));
+
+                    Auth::guard('web')->logout();
+                    return redirect()->route('users.login')->with('fail', 'Your account is not activated yet and a link to activate it has been resent. Kindly check your email to activate your account');
                 }else{
                      if($this->returnUrl != null){
                         return redirect()->to($this->returnUrl);

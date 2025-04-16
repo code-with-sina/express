@@ -26,9 +26,9 @@
                     <img src="/storage/images/post_images/{{ $post->featured_image }}" class="img-fluid w-100 m-0 p-0" alt="">
                 </div>
                 <div class="col-12 col-md-12">
-                    <p class="lead fs-4 fw-bold">
+                    <h1 class="fw-bold my-2">
                         {{ $post->post_title }}
-                    </p>
+                    </h1>
                 </div>
                 <div class="col-12 col-md-12 d-none d-sm-block">
                     <img src="/storage/images/post_images/{{ $post->featured_image }}" class="img-fluid w-100 m-0 p-0" alt="">

@@ -21,6 +21,8 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 
+    
+
 
 
     # Disable Directory listing

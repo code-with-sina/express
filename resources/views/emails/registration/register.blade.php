@@ -185,10 +185,6 @@
 </head>
 
 <body style="margin: 5.5% auto;">
-
-
-
-
     <table align="center" border="0" cellpadding="0" cellspacing="0"
         style="background-color: white; width: 90%; box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.2705882353);-webkit-box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.2705882353); padding: 45px;">
         <tbody>

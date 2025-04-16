@@ -21,8 +21,16 @@ Broadcast::channel('gateway.pay.{id}', function($user, $id) {
     return $user;
 });
 
-Broadcast::channel('presence.chat.{id}', function($user, $id) {
+Broadcast::channel('presence.chat.{id}', function($user) {
+    // if ($id) {
+    //     return ['id' => $user->id, 'name' => $user->name];
+    // }
+    // return ['id' => $user->id, 'name' => $user->name];
     return $user;
 });
+
+// Broadcast::channel('presence.chat.{id}', function($user, $id) {
+//     return $user;
+// },  ['guards' => ['web']]);
 
 

@@ -25,7 +25,8 @@
                 @php
                     $props = \App\Models\ExpressTransaction::where('seller_id', auth()->user()->id)
                                                             ->where('transaction_status', 'processing')
-                                                            ->orWhere('transaction_status', 'pending')
+                                                            ->orWhere('seller_id', auth()->user()->id)
+                                                            ->where('transaction_status', 'pending')
                                                             ->get();
                 @endphp
                 @if (!$props->isEmpty())
@@ -34,7 +35,7 @@
                             <div class="col-md-12 my-2">
                                 <div class="row">
                                     <div class="col-6 col-sm-6 col-md-3 dashboard-activity-devider p-0">
-                                        <small class="dashboard-status float-start">{{ ($item->transaction_status == 'processing' ? 'Waiting for you to make payment' :  ($item->transaction_status == 'success' ? ($item->buyer_disbursment_confirmation == 1 ? 'Payment has been disbursed' : 'Waiting for admin to make payment') :  'Opps failure somewhere')) }} </small>
+                                        <small class="dashboard-status float-start">{{ ($item->transaction_status == 'processing' ? 'Waiting for you to make payment' :  ($item->transaction_status == 'success' ? ($item->buyer_disbursment_confirmation == 1 ? 'Payment has been disbursed' : 'Waiting for admin to make payment') :  ($item->transaction_status == 'pending' ? 'Pending' : ($item->transaction_status == 'closed' ? 'Cancelled' : 'Opps failure somewhere')))) }} </small>
                                     </div>
                                     <div class="col-6 col-sm-6 col-md-9 p-0 text-truncate">
                                         <small class="dashboard-timer float-start ms-1">{{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</small>
@@ -97,7 +98,7 @@
                                     </div>
                                     <div class="col mb-0 py-3">
                                         <div class="d-grid gap-2 py-2">
-                                            <a href="{{ url('users/express-transaction?message='.$item->order_id) }}" class="btn btn-success">view</a>
+                                            <a href="{{ url('users/device?message='.$item->order_id) }}" class="btn btn-success">view</a>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +108,7 @@
                             <div class="col-md-12 my-2">
                                 <div class="row">
                                     <div class="col-6 col-sm-6 col-md-3 dashboard-activity-devider p-0 m-0">
-                                        <small class="dashboard-status">{{ ($item->transaction_status == 'processing' ? 'Waiting for you to make payment' :  ($item->transaction_status == 'success' ? ($item->buyer_disbursment_confirmation == 1 ? 'Payment has been disbursed' : 'Waiting for admin to make payment') :  'Opps failure somewhere')) }} </small>
+                                        <small class="dashboard-status">{{ ($item->transaction_status == 'processing' ? 'Waiting for you to make payment' :  ($item->transaction_status == 'success' ? ($item->buyer_disbursment_confirmation == 1 ? 'Payment has been disbursed' : 'Waiting for admin to make payment') :  ($item->transaction_status == 'pending' ? 'Pending' : ($item->transaction_status == 'closed' ? 'Cancelled' : 'Opps failure somewhere')) )) }} </small>
                                     </div>
                                     <div class="col-6 col-sm-6 col-md-9 p-0 text-truncate">
                                         <small class="dashboard-timer ms-1">{{ Str::limit(\Carbon\Carbon::parse($item->created_at)->diffForHumans(), 10) }}</small>
@@ -174,7 +175,7 @@
                                             </div>
                                             <div class="col-3 py-5">
                                                 <div class="d-grid">
-                                                    <a href="{{ url('users/express-transaction?message='.$item->order_id) }}" class="btn btn-success btn-font-small">view</a>
+                                                    <a href="{{ url('users/device?message='.$item->order_id) }}" class="btn btn-success btn-font-small">view</a>
                                                 </div>
                                             </div>
                                         </div>

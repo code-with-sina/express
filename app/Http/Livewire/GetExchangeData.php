@@ -57,36 +57,8 @@ class GetExchangeData extends Component
 
     public function render()
     {
-        $props = ExchangeItem::orderBy('ordering', 'asc')->paginate(15);
+        $props = ExchangeItem::orderBy('ordering', 'asc')->paginate(40);
         return view('livewire.get-exchange-data', ['props' => $props]);
     }
 }
 
-
-
-
-
-// <?php
-
-// namespace App\Http\Livewire;
-
-// use Livewire\Component;
-// use App\Models\ExchangeItem;
-
-// class GetExchangeData extends Component
-// {
-
-//     public function deleteItem($id){
-//         $deleted = ExchangeItem::find($id)->delete();
-
-//         if($deleted){
-//             $this->reset();
-//         }
-//     }
-
-//     public function render()
-//     {
-//         $props = ExchangeItem::orderBy('id', 'desc')->paginate(5);
-//         return view('livewire.get-exchange-data', ['props' => $props]);
-//     }
-// }

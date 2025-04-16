@@ -11,6 +11,7 @@ class ExchangeRate extends Component
     use WithPagination;
 
     public $search = '';
+    public $message;
 
     public function updatingSearch()
     {
@@ -24,6 +25,8 @@ class ExchangeRate extends Component
 
     public function render()
     {
-        return view('livewire.exchange-rate', ['props' => ExchangeItem::where('item', 'like', '%'.$this->search.'%')->where('active', 1)->orderBy('ordering', 'asc')->paginate(15)]);
+        $props = ExchangeItem::where('item', 'like', '%'.$this->search.'%')->where('active', 1)->orderBy('ordering', 'asc')->paginate(15);
+        $props->isEmpty()  == true  ?  $this->message = 'item is not found'  : $this->message = '';
+        return view('livewire.exchange-rate', ['props' =>  $props->isEmpty() ? ExchangeItem::where('active', 1)->orderBy('ordering', 'asc')->paginate(15) : $props]);
     }
 }

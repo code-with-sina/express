@@ -1,3 +1,7 @@
+:root {
+    --secondaryBackgroundColor: #21272A;
+}
+
 .bg-dark {
     background-color: #181C1F !important;
 }
@@ -22,6 +26,11 @@
 #small {
     font-size: xx-small !important;
 }
+
+.midFrame {
+    width: 30.3vw !important; 
+    height: 35vh !important;
+  }
 
 
 .exchange {
@@ -48,6 +57,10 @@
     font-weight: bolder !important;
     color: white;
 }
+.bg-ratefy-secondary {
+    background-color: var(--secondaryBackgroundColor) !important;
+}
+
 
 .rateimage {
     cursor: pointer; 
@@ -64,6 +77,9 @@
     font-size: 18px !important;
 }
 
+.text-little {
+    font-size: 14px !important;
+}
 
 .sell {
    cursor: pointer;  
@@ -81,5 +97,20 @@
     }
 }
 
+@media screen and (max-width: 600px) {
+
+    .midFrame {
+        width: 80vw !important; 
+        height: 35vh !important;
+      }
+    .text-little {
+        display: none;
+    }
+
+    .text-smaller {
+        font-size: 10px !important;
+    }
+
+}
 
 

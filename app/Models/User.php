@@ -28,7 +28,8 @@ class User extends Authenticatable
         'biography',
         'type',
         'blocked',
-        'direct_publish'
+        'direct_publish',
+        'uuid'
     ];
 
     /**

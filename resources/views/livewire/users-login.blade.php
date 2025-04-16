@@ -17,7 +17,7 @@
             <form wire:submit.prevent="UsersLoginHandler()" method="post" autocomplete="off" class="mb-3">
                 <div class="input-group mb-5">
                     <span class="input-group-text  border border-end-0 rounded-start bg-white px-3" id="basic-addon1"><i class="bi bi-person"></i></span>
-                    <input type="text" class="form-control form-control-lg  border border-start-0 rounded-end bg-white" placeholder="Loki Loyfenson" aria-label="Username" aria-describedby="basic-addon1" wire:model='login_id'>
+                    <input type="text" class="form-control form-control-lg  border border-start-0 rounded-end bg-white" placeholder="email / username" aria-label="Username" aria-describedby="basic-addon1" wire:model='login_id'>
                 </div>
                 @error('login_id')
                     <span class="text-danger">{{$message}}</span>

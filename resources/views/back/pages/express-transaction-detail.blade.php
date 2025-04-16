@@ -8,10 +8,16 @@
 @vite(['resources/js/adminchats.js'])
 <div class="page-header d-print-none">
     <div class="row align-items-center">
-        <div class="col">
+        <div class="col-9">
             <h2 class="page-title">
                 {{ $detail->seller_account_name }}
             </h2>
+        </div>
+        <div class="col-2">
+            <a class="btn btn-success float-end my-1" href="{{ route('author.get-status',  $detail->order_id)}}">check payment status</a>
+        </div>
+        <div class="col-1">
+            <botton class="btn btn-success float-end my-1">{{ $detail->transaction_status}}</botton>
         </div>
     </div>
 </div>
@@ -66,15 +72,25 @@
             </div>
         </div>
         <div class="card">
-            <button class="btn btn-success" id="clientPay">
-                Pay client
-            </button>
+            
+            @if($detail->transaction_status !== "closed" && $detail->transaction_status !== "success")
+                <button class="btn btn-success" id="clientPay">
+                    Pay client
+                </button>
+            @endif
+           
         </div>
         <div class="card">
             <button class="btn btn-success" id="manualPay">
                 Manual Payment
             </button>
             <input type="hidden" value="{{$detail->seller_id }}" id="manualPayId">
+        </div>
+        <div class="card">
+            <button class="btn btn-success" id="cancelPay">
+                cancel Transaction
+            </button>
+            <input type="hidden" value="{{$detail->seller_id }}" id="cancelTransactionId">
         </div>
 
     </div>
@@ -84,18 +100,87 @@
                 <div class="card mb-2">
                     <div class="card-body">
                         <p class="fw-bold text-secondary mb-2">
+                            Exchange Items
+                        </p>
+                        <p class="mb-3">{{ @$xitem->item }} <small class="ms-3">Percentage: {{ @$xitem->percntage }}
+                            %</small></p>
+                        
+                        <small class="float-start me-3">Tag: {{ @$xitem->sub_item }}
+                        </small>
+                        <small class="float-start me-3">Status: {{ @$xitem->active == 1 ? 'active' : 'pause' }}
+                        </small>
+                        <small class="float-start me-3">Ranges: {{ @$xitem->price_from }} {{ @$xitem->price_to }}
+                        </small>
+                        <small class="float-end">Cat: {{ @$xitem->labels }} </small>
+                        <br>
+                        <small class="float-end">
+                        @php
+                            $percentage = $detail->conversion_amount / $detail->wallet_amount;
+                        @endphp
+                           Exchange at  ₦ {{ number_format($percentage, 2) }}
+                        </small>
+                        <hr>
+                        
+
+                        <p class="fw-bold text-secondary mb-2">
                             Seller's Binding Note
                         </p>
-                        <p class="mb-3">{{ $detail->express_binding_detail_note }}</p>
-                        <small class="float-start me-3">Duration: {{ $detail->express_binding_detail_duration }}
+                        <p class="mb-3">{{ @$detail->express_binding_detail_note }}</p>
+                        <small class="float-start me-3">Duration: {{ @$detail->express_binding_detail_duration }}
                             mins</small>
-                        <small class="float-start me-3">Starts: {{ $detail->express_binding_detail_start_time }}
+                        <small class="float-start me-3">Starts: {{@$detail->express_binding_detail_start_time }}
                         </small>
-                        <small class="float-end">Ends: {{ $detail->express_binding_detail_end_time }} </small>
+                        <small class="float-end">Ends: {{ @$detail->express_binding_detail_end_time }} </small>
                         <br>
                         <hr>
-                        <small class="float-end">Expiry: {{ $detail->express_binding_detail_expires == 0 ? 'Ongoing' :
+                        <small class="float-end">Expiry: {{ @$detail->express_binding_detail_expires == 0 ? 'Ongoing' :
                             'Expired' }} </small>
+                    </div>
+                </div>
+
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <p class="fw-bold text-secondary mb-2">
+                           User Verification
+                        </p>
+                        <div class="row w-100">
+                            <div class="col-6">
+                                <p class="mb-3">Selfie </p>
+                                <img src="/storage/images/verification/thumbnails/resized_{{ @$userverify->selfie_path }}" alt="" class="img-fluid" />
+                            </div>
+                            <div class="col-6">
+                                <p class="mb-3">NiN </p>
+                                <img src="/storage/images/verification/thumbnails/resized_{{ @$userverify->nin_path }}" alt="" class="img-fluid" />
+                            </div>
+                        </div>
+                            <br>
+                        <small class="float-end me-3 @if(@$userverify->status == 'approved') text-success @else if(@$userverify->status == 'denied') text-danger @endif ">status: {{ @$userverify->status }}
+                        </small>
+                        <hr>
+                        
+
+                        <p class="fw-bold text-secondary mb-2">
+                           Business Profile
+                        </p>
+                        <p class="mb-3">Business Name:  {{ @$businessProfile->business_name }}</p>
+                        <p class="mb-3">Category:       {{ @$businessProfile->category }}</p>
+                        <p class="mb-3">Description:    {{ @$businessProfile->description }}</p>
+                        <p class="mb-3">Linkedin:       {{ @$businessProfile->linkedin }}</p>
+                        <p class="mb-3">Siteprofiles:   {{ @$businessProfile->siteprofiles }}</p>
+                        
+                    </div>
+                </div>
+
+                
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <p class="fw-bold text-secondary mb-2">
+                            Prove of Payment
+                        </p>
+                        @if($detail->pop_path !== null)
+                            <img src="/storage/images/pop_payment/thumbnails/original_{{ $detail->pop_path }}" class="img-fluid" alt="Prove of Payment" />
+                        @endif
+                        
                     </div>
                 </div>
                 <div class="row">
@@ -138,7 +223,7 @@
                                         <li class="list-group-item border-0"><small class="float-start">Account:
                                             </small> <small class="float-end" id="accountNumber"> {{ $banks->account_number}}</small></li>
                                         <li class="list-group-item border-0"><small class="float-start">code: </small>
-                                            <small class="float-end" id="code"> {{ $banks->code}}</small></li>
+                                            <small class="float-end" id="code"> {{ $banks->bank_nipcode}}</small></li>
                                     </div>
                                 </div>
                             </div>
@@ -170,12 +255,17 @@
                 <div class="card">
                     <span id="node_id" class="invisible">
                         {{ auth()->user()->id }}
+                        
                     </span>
+                   
                     <div class="card-body">
+                        <span id="online" class="ms-2 text-success"> </span>
+                        <span id="momento" class="ms-2 text-success"> </span>
                         <div class="row" id="list-message" style="height: 500px; overflow-y:auto">
                                     {{-- Chat div. Developer must take note of this area with caution --}}
                         </div>
                         <form id="form">
+                            <em><span id="span-typing" class="m-2 text-success"></span></em>
                             <div class="input-group">
                                 <input type="text" class="form-control border-0" id="input-message" name="message" placeholder="start type..." autocomplete="off">
                                 <span class="input-group-text bg-white border border-0 common" id="send"><i class="bi bi-send text-ratefy"></i></span>

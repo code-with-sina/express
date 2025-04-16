@@ -53,14 +53,7 @@
                                                
                                             </div>
                                             <div class="col-12">
-                                                <div class="row">
-                                                    <!--<div class="col-12 text-center  my-2">-->
-                                                    <!--    <i class="bi bi-check2-square display-3 text-ratefy"></i>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="col-12 text-center  my-2">-->
-                                                    <!--    <i class="bi bi-exclamation-square display-4 text-ratefy"></i>-->
-                                                    <!--</div>-->
-                                                    
+                                                <div class="row">                                                    
                                                     @if (Session::get('success'))
                                                         <div class="col-12 text-center  my-2">
                                                             <i class="bi bi-check2-square display-3 text-ratefy"></i>
@@ -78,13 +71,13 @@
                                                    
                                                     <div class="col-8  my-2">
                                                         @if (Session::get('success'))
-                                                            <p class="paragraph-ratefy-p2">
+                                                            <p class="paragraph-ratefy-p2" style="color: #4b4c4c !important;">
                                                                {{ Session::get('success') }}
                                                             </p>
                                                         @endif
                                                         
                                                         @if (Session::get('fail'))
-                                                            <p class="paragraph-ratefy-p2">
+                                                            <p class="paragraph-ratefy-p2" style="color: #4b4c4c !important;">
                                                                 {{ Session::get('fail') }}
                                                             </p>
                                                         @endif

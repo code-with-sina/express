@@ -5,7 +5,6 @@ namespace App\Events;
 use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -47,6 +46,7 @@ class ChatMessageEvent implements ShouldBroadcast
 
     public function broadcastWith()
     {
+        
         return [
             'message'   => $this->message,
             'user'      => $this->user->only(['username', 'email']),

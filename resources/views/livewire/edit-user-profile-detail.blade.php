@@ -3,7 +3,7 @@
         <form wire:submit.prevent='UpdateDetails()' method="post">
             <div class="col-md-12">
                 <h2>
-                    Name and email
+                    Basic Profile
                 </h2>
             </div>
             <div class="row">
@@ -69,7 +69,7 @@
         <form wire:submit.prevent='UpdateDetails()' method="post">
             <div class="col-md-12">
                 <h2>
-                    Name and email ser
+                   Basic Profile
                 </h2>
             </div>
             <div class="row">

@@ -25,7 +25,7 @@
             <div class="row">
               <div class="col col-md-10 mx-auto">
                
-                <div class="container py-5 px-5">
+                <div class="container px-2 py-5 px-lg-5">
                     
                     <div class="row">
                       

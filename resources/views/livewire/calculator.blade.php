@@ -6,7 +6,7 @@
                         <div class="text-dark text-sm col-6"> 
                         
                        @php
-                           
+                            $status = \App\Models\RateSwitch::latest()->first();
                             if($percentData != 0){
                                 $image = \App\Models\ExchangeItem::where('percntage', $percentData)->first();
                         @endphp

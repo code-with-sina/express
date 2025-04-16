@@ -7,7 +7,11 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/js/adminchats.js',
+                'resources/js/newchat.js',
+                'resources/js/newchatmobile.js',
                 'resources/js/client-express-chat.js',
+                'resources/js/client-chat-notification.js',
+                'resources/js/adminsecchats.js',
                 'resources/sass/app.scss',
                 'resources/js/app.js',
             ],

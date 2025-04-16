@@ -198,7 +198,7 @@
                         <tr class="header">
                             <td align="center" class="header-logo"
                                 style="text-align: center; display: block; margin-bottom: 20px; background-color: #181C1F;" valign="top" width="100%">
-                                <a href="../front-end/html/index.html">
+                                <a href="https://ratefy.co">
                                     <img src="{{  blogInfo()->blog_logo }}" class="main-logo" alt="Ratefy.co">
                                 </a>
                             </td>
@@ -219,7 +219,7 @@
 
                                     </p>
                                     <p style="font-size: 12px; margin-left: 15px; margin-bottom: 20px;">
-                                        If you didn’t receive it on time, please let  us know by <a href="https://ratefy.co">clicking here </a>
+                                        If you didn’t receive it on time, please let  us know by <a href="mailto:support@ratefy.co">clicking here </a>
 
                                     </p>
                                     <p style="font-size: 12px; margin-left: 15px;">
@@ -238,10 +238,10 @@
                                         
                                     </p>
                                     <hr>
-                                    <p style="font-size: 12px; margin-left: 15px;">
+                                    <!-- <p style="font-size: 12px; margin-left: 15px;">
                                         If you didn’t receive it on time, please let  us know by clicking here 
 
-                                    </p>    
+                                    </p>     -->
                                    
                                 </div>
                                 <div class="title title-2">                               

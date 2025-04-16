@@ -23,7 +23,9 @@ class Buying extends Component
         $this->validate([
             'wallet_type'       => 'required',
             'availability'      => 'required',
-            'currency'          => 'required'
+            'currency'          => 'required',
+            'amount'            => 'nullable',
+            'currency'          => 'nullable'
         ]);
 
         $queueBuy   =    new Buying();

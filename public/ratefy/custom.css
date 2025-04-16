@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500;600;700;800&family=Rubik:wght@400;500;600;700;800;900&display=swap');
+body{
+    color: #ffffff;
+    background-color: #181C1F;
+}
+
+.reciept-area {
+    background-color: #21272A;
+}
+
+.chat-body-height{
+    height: 720px;
+}
+
+.chat-body-width{
+    width: 842.5px;
+}
+
+.inner-chat-body{
+    height: 630px;
+}
+
+.nav-left-font {
+    font-family: 'Karla', sans-serif;
+    font-size: 18px;
+}
+.nav-right-font {
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+.reciept-header {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+}
+.receipt-body {
+    font-family: 'Karla', sans-serif;
+    font-size: 12px;
+    color: #CCCCCC;
+}
+
+.attach-file {
+    border: 1px dashed #000000;
+    border-radius: 8px;
+    padding: 5px 33px
+}
+
+.made-payment-button {
+    background-color: #008153;
+    border-radius: 8px;
+    padding: 5px 10px;
+    color: #ffffff;
+}
+
+.pup-made-payment {
+    background-color: #D2FFEF;
+    color: #008153;
+    padding: 2% 2%;
+    border-radius: 0px 10px 10px 10px;
+}
+
+.pup-cancel-payment {
+    background-color: #FFE1E1;
+    color: #494949;
+    padding: 2% 2%;
+    border-radius: 0px 10px 10px 10px;
+}
+
+.cancel-payment-button {
+    background-color: #901A1A;
+    border-radius: 8px;
+    padding: 5px 10px;
+    color: #ffffff;
+}
+
+.receipt-body b {
+    font-family: 'Karla', sans-serif;
+    font-size: 12px;
+    color: #ffffff;
+}
+.inner-header-reciept {
+    font-family: 'Karla', sans-serif;
+    font-size: 14px;
+}
+.user-header {
+    background-color: #1C2124;
+}
+.user-header-body {
+    background-color: #181C1F;
+}
+.user-list {
+    border-bottom: 1px #2D2D2D solid ;
+}
+.user-header-reciept {
+    font-family: 'Karla', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+.user-header-reciept-rated {
+    font-family: 'Rubik', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+}
+.user-header-reciept-rated-sub {
+    font-family: 'Karla', sans-serif;
+    font-size: 10px;
+    color: #A6A6A6 !important;
+}
+.user-receipt-list-title {
+    font-family: 'Karla', sans-serif;
+    font-size: 10px;
+    color: #9F9F9F !important;
+}
+.user-receipt-list-subtitle {
+    font-family: 'Karla', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+.report-button {
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #673328;
+    padding: 4px 12px;
+    border-radius: 10px;
+}
+.chat-status {
+    background-color: #816F38;
+}
+
+.chat-status-b {
+    background-color: #576186;
+}
+
+.chat-status-c {
+    background-color: #00B172;
+}
+
+#countedTime {
+    font-size: 13px !important;
+}
+.status-title {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+.status-subtitle {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+}
+.status-paragraph {
+    font-family: 'Karla', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+}
+.status-time {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    padding: 0%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin: 3px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #000000;
+}
+.chat-div {
+    background-color: #ffffff;
+    height: 500px;
+    padding-bottom: 100px;
+    overflow-y:auto;
+}
+
+.chat-arean {
+    background-color: #ffffff;
+}
+
+.made-payment {
+    background-color: #D2FFEF;
+    color: #008153;
+    padding: 2% 2%;
+    border-radius: 0px 10px 10px 10px;
+    font-family: 'Karla', sans-serif;
+    font-size: 12px;
+}
+
+.cancel-payment {
+    background-color: #FFE1E1;
+    color: #BC0000;
+    padding: 2% 5%;
+    border-radius: 0px 10px 10px 10px;
+    font-family: 'Karla', sans-serif;
+    font-size: 12px;
+}
+
+.conversation-status {
+    font-family: 'Karla', sans-serif;
+    font-size: 12px;
+    color: #737373;
+}
+
+.conversation-status b {
+    font-family: 'Karla', sans-serif;
+    font-size: 14px;
+    color: #333333;
+}
+
+.recipient-chat {
+    font-family: 'Karla', sans-serif;
+    font-size: 12px;
+    color: #242424;
+    background-color: #F2F2F2;
+    padding: 7px 15px;
+    border-radius: 0px 10px 10px 10px;
+}
+
+.owner-chat {
+    font-family: 'Karla', sans-serif;
+    font-size: 12px;
+    color: #242424;
+    background-color: #F2F2F2;
+    padding: 7px 15px;
+    border-radius: 10px 0px 10px 10px;
+}
+
+.bot-img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: white; 
+}
+.recipient-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: coral;
+}
+
+.wallet-img {
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 50%;
+    background-color: #242424;
+}
+
+.chat-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: coral;
+}
+
+
+
+
+
+
+.feedback {
+    background-color: #000000;
+}
+.feedback-title {
+    font-family: 'Karla', sans-serif;
+    font-size: 20px !important;
+}
+.feedback-positive {
+    font-family: 'Karla', sans-serif;
+    font-size: 14px !important;
+    padding: 5px 30px;
+    border-radius: 10px;
+    color: #EAEAEA;
+    background-color: #00B172;
+    border: 0% !important;
+}
+.feedback-negative {
+    font-family: 'Karla', sans-serif;
+    font-size: 14px !important;
+    padding: 5px 30px;
+    border-radius: 10px;
+    color: #EAEAEA;
+    background-color: #622012;
+    border: 0% !important;
+}
+ textarea {
+    background-color: #000000 !important;
+    border: 1px solid #A9A9A9 !important;
+    font-family: 'Rubik', sans-serif !important;
+    font-size: 12px !important;
+}

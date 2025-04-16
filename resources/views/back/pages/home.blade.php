@@ -41,11 +41,19 @@
           <div class="col-md-12 mb-1">
             <div class="card card-sm">
                 <div class="card-body">
-                  <h3>Seller's Notification</h3>
+                  <h3>Edit Rate</h3>
                 </div>
               </div>
           </div>
-          <livewire:seller-announcement />
+            <div>
+              
+            </div>
+
+           <livewire:seller-announcement /> 
+           <br class="mb-2" />
+           <livewire:rate-switch /> 
+           <br class="mb-2" />
+           <livewire:manual-rate /> 
         </div>
       
       @endif

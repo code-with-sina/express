@@ -59,6 +59,7 @@ class UsersResetForm extends Component
             $this->redirectRoute('users.login', ['tkn' => $success_token, 'email' => $this->email]);
         }
     }
+    
     public function render()
     {
         return view('livewire.users-reset-form');

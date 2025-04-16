@@ -17,11 +17,25 @@
       'WebSocketRouter' => 'BeyondCode\\LaravelWebSockets\\Facades\\WebSocketRouter',
     ),
   ),
+  'combindma/laravel-facebook-pixel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Combindma\\FacebookPixel\\FacebookPixelServiceProvider',
+    ),
+  ),
   'cviebrock/eloquent-sluggable' => 
   array (
     'providers' => 
     array (
       0 => 'Cviebrock\\EloquentSluggable\\ServiceProvider',
+    ),
+  ),
+  'davmixcool/laravel-meta-manager' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Davmixcool\\MetaManager\\MetaServiceProvider',
     ),
   ),
   'intervention/image' => 
@@ -33,6 +47,24 @@
     'aliases' => 
     array (
       'Image' => 'Intervention\\Image\\Facades\\Image',
+    ),
+  ),
+  'jenssegers/agent' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Jenssegers\\Agent\\AgentServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Agent' => 'Jenssegers\\Agent\\Facades\\Agent',
+    ),
+  ),
+  'kitloong/laravel-migrations-generator' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'KitLoong\\MigrationsGenerator\\MigrationsGeneratorServiceProvider',
     ),
   ),
   'laravel/sail' => 
@@ -95,6 +127,28 @@
       0 => 'Termwind\\Laravel\\TermwindServiceProvider',
     ),
   ),
+  'ralphjsmit/laravel-helpers' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'RalphJSmit\\Helpers\\HelpersServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Helpers' => 'RalphJSmit\\Helpers\\Facades\\Helpers',
+    ),
+  ),
+  'ralphjsmit/laravel-seo' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'RalphJSmit\\Laravel\\SEO\\LaravelSEOServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'SEOManager' => 'RalphJSmit\\Laravel\\SEO\\Facades\\SEOManager',
+    ),
+  ),
   'spatie/laravel-ignition' => 
   array (
     'providers' => 
@@ -104,6 +158,20 @@
     'aliases' => 
     array (
       'Flare' => 'Spatie\\LaravelIgnition\\Facades\\Flare',
+    ),
+  ),
+  'spatie/laravel-sitemap' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\Sitemap\\SitemapServiceProvider',
+    ),
+  ),
+  'spatie/laravel-webhook-client' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\WebhookClient\\WebhookClientServiceProvider',
     ),
   ),
   'unicodeveloper/laravel-paystack' => 

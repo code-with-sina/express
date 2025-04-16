@@ -1,7 +1,7 @@
 import axios from 'axios';
 import './bootstrap';
 
-
+axios.defaults.withCredentials = true;
 var today = new Date();
 var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
@@ -14,29 +14,14 @@ const userId = nodeId.innerHTML;
 const sessionId = Id.innerHTML;
 
 
-const gateway = Echo.join(`gateway.pay.${sessionId.trim()}`);
-gateway.here((user) => {
-    console.log(user);
-    console.log('subscribe');
-    // console.log(source);
-
-}).joining(() => {
-    console.log('gateway joining');
-}).leaving(() => {
-    console.log('gateway leaving');
-}).listen('pay',(event)=> {
-    console.log(event);
-
-        // window.location.href = `express-transaction?message=${sessionId.trim()}`;
-
-});
-
-const channel = Echo.join(`presence.chat.${sessionId.trim()}`);
+const channel = Echo.join('presence.chat.'+sessionId.trim());
 const listMessage = document.getElementById('list-message');
-console.log(sessionId.trim());
+
+
 channel.here((users) => {
-    console.log(users);
-    console.log('@ subscribed');
+ 
+    console.log('you subscribed');
+    
     axios.post('/author/express/transaction/chat/history', {
         user_id: parseInt(userId.trim()),
         session_id: sessionId.trim()
@@ -55,7 +40,7 @@ channel.here((users) => {
                 const messageDiv = document.createElement("div");
                 messageDiv.classList.add("message-left");
                 
-                imageDiv.innerHTML = '<img src="http://127.0.0.1:8000/front/image/Payoneer.png" alt="" srcset="">';
+                imageDiv.innerHTML = '<img src="https://ratefy.co/front/image/client-profile.png" height="23" alt="" srcset="">';
 
                 outCoverDiv.appendChild(distributorDiv);
                     distributorDiv.appendChild(imageDiv);
@@ -74,14 +59,13 @@ channel.here((users) => {
                 const inMessageDiv = document.createElement("div");
                 inMessageDiv.classList.add("message-right");
 
-                        inImageDiv.innerHTML = '<img src="http://127.0.0.1:8000/front/image/Payoneer.png" alt="" srcset="">';
+                        inImageDiv.innerHTML = '<img src="https://ratefy.co/front/image/customer-care.png" height="23" alt="" srcset="">';
                         inCoverDiv.appendChild(inDistributorDiv);
                         inDistributorDiv.appendChild(inMessageCoverDiv);
                         inDistributorDiv.appendChild(inImageDiv);
                                     inMessageCoverDiv.appendChild(inMessageDiv);
 
                 if(parseInt(chatMessage[messages]['user_id']) === parseInt(userId.trim())){
-
                     inMessageDiv.innerHTML = chatMessage[messages]['message'];
                     listMessage.append(inCoverDiv);
                     listMessage.scrollTop = listMessage.scrollHeight;
@@ -96,11 +80,17 @@ channel.here((users) => {
     });
     
 }).joining((user) => {
-    console.log('join');
+    onlineChecker.textContent = 'online';
     
 }).leaving((user) => {
-    console.log('leave');
+    onlineChecker.textContent = 'offline';
+   
 }).listen('.chat-message', (event) => {
+    if(channel.subscription.members.count < 2){
+        axios.post('author/dispatch/notification', {
+            message: sessionId.trim()
+        });
+    }
     console.log(event.id);
     console.log(event.message);
 
@@ -117,7 +107,7 @@ channel.here((users) => {
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("message-left");
     
-    imageDiv.innerHTML = '<img src="http://127.0.0.1:8000/front/image/Payoneer.png" alt="" srcset="">';
+    imageDiv.innerHTML = '<img src="https://ratefy.co/front/image/client-profile.png" height="23" alt="" srcset="">';
 
     outCoverDiv.appendChild(distributorDiv);
         distributorDiv.appendChild(imageDiv);
@@ -136,13 +126,15 @@ channel.here((users) => {
     const inMessageDiv = document.createElement("div");
     inMessageDiv.classList.add("message-right");
 
-            inImageDiv.innerHTML = '<img src="http://127.0.0.1:8000/front/image/Payoneer.png" alt="" srcset="">';
+            inImageDiv.innerHTML = '<img src="https://ratefy.co/front/image/customer-care.png" height="23" alt="" srcset="">';
             inCoverDiv.appendChild(inDistributorDiv);
             inDistributorDiv.appendChild(inMessageCoverDiv);
             inDistributorDiv.appendChild(inImageDiv);
                         inMessageCoverDiv.appendChild(inMessageDiv);
 
     if(parseInt(event.id) === parseInt(userId.trim())){
+
+        
 
         inMessageDiv.innerHTML = message;
         listMessage.append(inCoverDiv);
@@ -159,30 +151,63 @@ channel.here((users) => {
         listMessage.append(outCoverDiv);
         listMessage.scrollTop = listMessage.scrollHeight;        
     }
-
-    
-
+}).listenForWhisper('typing', (event) => {
+    spanTyping.textContent = event.email + ' is typing...';
+    console.log('typing');
+}).listenForWhisper('stop-typing', (event) => {
+    spanTyping.textContent = " ";
+    console.log('not typing');
+}).listenForWhisper('movement', (event) => {
+    console.log(event.email);
+    movement.textContent = event.email;
 });
 
-let saveData = localStorage.getItem("transactionData");
-// localStorage.clear('transactionData');
-messageDB.length < 1 ? messageDB.push(JSON.parse(saveData)) : messageDB;
-console.log(JSON.parse(saveData));
-console.log(sessionId);
+
+
+let nim = window.navigator.appVersion;
+const successCallback = (position) => {
+    console.log(position);
+  };
+  
+  const errorCallback = (error) => {
+    console.log(error);
+  };
+let max = navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+let userData = {location: max, version: nim};
+let objData = JSON.stringify(userData);
 
 const form          = document.getElementById('form');
 const inputMessage  = document.getElementById('input-message');
 const sender          = document.getElementById('send');
 const clientPay          = document.getElementById('clientPay');
-
+const spanTyping = document.getElementById('span-typing');
+let cancelPay   = document.getElementById('cancelPay');
 const manualPay = document.getElementById('manualPay');
-const manualPayId = await document.getElementById('manualPayId');
+const onlineChecker =  document.getElementById('online'); 
+const movement =  document.getElementById('momento'); 
+const manualPayId = document.getElementById('manualPayId');
 
+
+
+inputMessage.addEventListener('input', function(){
+    if(inputMessage.value.length === 0){
+        channel.whisper('stop-typing', {
+            email: 'admin'
+        });
+    }else{
+        channel.whisper('typing', {
+            email: 'admin'
+        });
+    }
+});
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
+    channel.whisper('stop-typing', {
+        email: 'seller'
+    });
     const userInput = inputMessage.value;
-
     axios.post('/author/chat-message', {
         message: userInput,
         sessionId: sessionId.trim()
@@ -193,6 +218,9 @@ form.addEventListener('submit', (event) => {
 
 sender.addEventListener('click', (event) => {
     event.preventDefault();
+    channel.whisper('stop-typing', {
+        email: 'admin'
+    });
     const userInput = inputMessage.value;
 
     axios.post('/author/chat-message', {
@@ -202,22 +230,55 @@ sender.addEventListener('click', (event) => {
     inputMessage.value = '';
 });
 
+    
+
 clientPay.addEventListener('click', (event) => {
     event.preventDefault();
     axios.post('/author/express/disburse/payment', {
         session: sessionId.trim(),
-        account: validAccount.trim()
+        account: validAccount.trim(),
+        finger:  objData,
     }).then(function (response) {
         if(response.status == 200){
-            console.log(response);
-            axios.post('/author/chat-message', {
-                message: 'paid',
+
+            let passcode = prompt("Enter OPT");
+             axios.post('/author/confirm-otp', {
+                passcode: passcode,
                 sessionId: sessionId.trim()
             }).then(function(response) {
                 console.log(response);
+                if(response.status == 200){
+                     axios.post('/author/chat-message', {
+                        message: 'paid',
+                        sessionId: sessionId.trim()
+                    }).then(function(response) {
+                        console.log(response);
+                        window.location.href = '/author/chats';
+                    });
+                }else if(response.status == 201) {
+                    alert('Successfull');
+                    axios.post('/author/chat-message', {
+                        message: 'Payment Sent',
+                        sessionId: sessionId.trim()
+                    }).then(function(response) {
+                        console.log(response);
+                        location.reload();
+                        // window.location.href = '/author/chats';
+                    });
+                }else if(response.status == 400){
+                    alert(response.data.message);
+                }else if(response.status == 208){
+                    axios.post('/author/chat-message', {
+                        message:response.data.message,
+                        sessionId: sessionId.trim()
+                    });
+                    alert(response.data.message);
+                }
+                
+                // window.location.href = '/author/chats';
+                // window.location.href = '/author/chats';
             });
-            window.location.href = '/author/chats';
-            // window.location.href = '/author/chats';
+            
         }
     });
     
@@ -239,6 +300,18 @@ manualPay.addEventListener('click', (event) => {
             window.location.href = '/author/chats';
         }else {
             console.log(response.data.message);
+        }
+        
+    });
+});
+
+
+cancelPay.addEventListener('click', () => {
+    axios.post('/author/cancel-payment/cancelled', {
+        session: sessionId.trim()
+    }).then((response) => {
+        if(response.status == 200){
+            window.location.href = '/author/chats';
         }
         
     });

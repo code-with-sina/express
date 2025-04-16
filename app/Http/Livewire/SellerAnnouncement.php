@@ -3,34 +3,43 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\ExchangeRate;
 use App\Models\SellAnnouncement as Announcement;
 
 class SellerAnnouncement extends Component
 {
-    public $subject, $amount, $description;
+    public $rate_decimal, $rateid;
 
+    public function mount()
+    {
+        $therate = $this->getEditatbleExchangeRate();
+        $this->rateid = $therate->id;
+    }
     public function postAnouncement(){
+        $announcement = false;
         $this->validate([
-            'subject'       => 'required',
-            'amount'        => 'required',
-            'description'   => 'required'
+            'rate_decimal'       => 'required',
         ]);
 
-        $post = new Announcement();
-        $post->subject      = $this->subject;
-        $post->amount       = $this->amount;
-        $post->description  = $this->description;
-        $announcement = $post->save();
+        ExchangeRate::where('id', $this->rateid)->update([
+            'rate_normal' => $this->rate_decimal,
+            'rate_decimal' => $this->rate_decimal
+        ]);
+        $announcement = true;
 
         if($announcement){
-            $this->showToastr('Your announcement has been made', 'success');
+            $this->showToastr('Your Rate has been changed', 'success');
             $this->resetErrorBag();
-            $this->subject = null;
-            $this->amount = null;
-            $this->description = null;
+            $this->rate_decimal = null;
         }else{
             $this->showToastr('Something went wrong', 'error');
         }
+    }
+
+    public function getEditatbleExchangeRate() 
+    {
+        $rate = ExchangeRate::latest()->first();
+        return $rate;
     }
 
     public function showToastr($message, $type){
@@ -43,6 +52,7 @@ class SellerAnnouncement extends Component
 
     public function render()
     {
-        return view('livewire.seller-announcement');
+        $lastrate = $this->getEditatbleExchangeRate();
+        return view('livewire.seller-announcement', ['lastrate' => $lastrate]);
     }
 }

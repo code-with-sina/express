@@ -16,7 +16,7 @@ class Author extends Component
     use WithPagination;
     public $name, $email, $username, $author_type, $direct_publisher;
     public $search;
-    public $perPage = 4;
+    public $perPage = 12;
     public $selected_author_id;
     public $blocked = 0;
 
@@ -42,13 +42,7 @@ class Author extends Component
             'message'   => $message
         ]);
     }
-    public function isOnline($site = "https://youtube.com"){
-        if(@fopen($site, "r")){
-            return true;
-        }else{
-            return false;
-        }
-    }
+    
 
 
     public function deleteAuthor($author){
@@ -130,44 +124,41 @@ class Author extends Component
             ]
         );
 
-        if($this->isOnline()){
-            $default_password           = Random::generate(8);
-            $author                     =   new User();
-            $author->name               =   $this->name;
-            $author->email              =   $this->email;
-            $author->username           =   $this->username;
-            $author->password           =   Hash::make($default_password);
-            $author->type               =   $this->author_type;
-            $author->direct_publish     =   $this->direct_publisher;
-            $saved  =   $author->save();
+        $default_password           = Random::generate(8);
+        $author                     =   new User();
+        $author->name               =   $this->name;
+        $author->email              =   $this->email;
+        $author->username           =   $this->username;
+        $author->password           =   Hash::make($default_password);
+        $author->type               =   $this->author_type;
+        $author->direct_publish     =   $this->direct_publisher;
+        $saved  =   $author->save();
 
-            $data = array(
-                'name'      =>  $this->name,
-                'email'     =>  $this->email,
-                'username'  =>  $this->username,
-                'password'  =>  $default_password,
-                'url'       =>  route('author.profile'),
-            );
+        $data = array(
+            'name'      =>  $this->name,
+            'email'     =>  $this->email,
+            'username'  =>  $this->username,
+            'password'  =>  $default_password,
+            'url'       =>  route('author.profile'),
+        );
 
-            $author_email   =   $this->email;
-            $author_name    =   $this->name;
-            
-            if($saved){
-                Mail::send('new-author-email-template', $data, function($message) use ($author_email, $author_name) {
-                    $message->from('no-reply@ratefy.co', 'Ratefy.co');
-                    $message->to($author_email, $author_name)->subject('Account creation');
-                });
+        $author_email   =   $this->email;
+        $author_name    =   $this->name;
+        
+        if($saved){
+            Mail::send('new-author-email-template', $data, function($message) use ($author_email, $author_name) {
+                $message->from('no-reply@ratefy.co', 'Ratefy.co');
+                $message->to($author_email, $author_name)->subject('Account creation');
+            });
 
-                $this->showToastr('New author has been added to blog.', 'success');
-                $this->name = $this->email = $this->username = $this->author_type = $this->direct_publisher = null;
-                $this->dispatchBrowserEvent('hide_add_author_modal');
-            }else{
-                $this->showToastr('Somethng went wrong', 'error');
-            }
-
+            $this->showToastr('New author has been added to blog.', 'success');
+            $this->name = $this->email = $this->username = $this->author_type = $this->direct_publisher = null;
+            $this->dispatchBrowserEvent('hide_add_author_modal');
         }else{
-            $this->showToastr('You are offline. check your internet connection and submit for again later', 'error');
+            $this->showToastr('Somethng went wrong', 'error');
         }
+
+        
     }
 
     public function render()

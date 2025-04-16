@@ -4,7 +4,8 @@ namespace App\Http\Livewire;
 
 use auth;
 use Livewire\Component;
-use App\Models\BankUser;
+// use App\Models\BankUser;
+use App\Models\CounterPartyAccount;
 use Illuminate\Support\Facades\Http;
 
 class UserBankDetail extends Component
@@ -13,7 +14,8 @@ class UserBankDetail extends Component
     
     public function render()
     {
-        $props = BankUser::where('users_id', auth()->user()->id)->get();
+        // $props = BankUser::where('users_id', auth()->user()->id)->get();
+        $props = CounterPartyAccount::where('users_id', auth()->user()->id)->get();
         return view('livewire.user-bank-detail', ['props' => $props]);
     }
 }

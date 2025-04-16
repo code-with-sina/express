@@ -35,7 +35,7 @@
 
             <div class="card-footer text-muted">
               <small class="float-end">
-                Rate is updated every <span class="fw-bold"> 3 hours </span>
+                Rate is updated every <span class="fw-bold"> 1 hours </span>
               </small>
             </div>
           </div>

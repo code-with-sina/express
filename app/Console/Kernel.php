@@ -2,7 +2,11 @@
 
 namespace App\Console;
 
+use App\Models\User;
 use App\Models\ExchangeRate;
+use Illuminate\Support\Carbon;
+use App\Mail\RateNotification;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -30,7 +34,22 @@ class Kernel extends ConsoleKernel
             $postData->status           =   2;
 
             $postData->save();
-        })->everyThreeHours();
+
+            Http::post('https://p2p.ratefy.co/api/create-rate', [
+                'rate_decimal' =>  $properties['rate'],
+                'rate_normal' => (int)$properties['rate'],
+                'assets_id_from' => $properties['asset_id_base'],
+                'assets_id_to' => $properties['asset_id_quote']
+            ]);
+
+            $admin  =  User::where('id', 134)->first();
+            $staff  =  User::where('id', 306)->first();
+
+            Mail::to($admin)->send(new RateNotification((int)$properties['rate'], Carbon::now()));
+            Mail::to($staff)->send(new RateNotification((int)$properties['rate'], Carbon::now())); 
+        })->hourly();
+
+        $schedule->command('sitemap:generate')->daily();
     }
 
     /**

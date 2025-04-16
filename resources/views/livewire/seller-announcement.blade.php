@@ -4,37 +4,19 @@
             <div class="card card-sm">
                 <div class="card-body">
                   <div class="mb-3">
-                      <label class="form-label">Subject</label>
-                      <input type="text" class="form-control" name="example-text-input" placeholder="subject" wire:model='subject'>
+                        <p>Rate in decimal: {{ $lastrate->rate_decimal }}</p>
+                        <p>Rate in USD: {{ $lastrate->rate_normal }}</p>
+                      <label class="form-label">Rate</label>
+                      <input type="hidden" class="form-control" name="example-text-input" placeholder="id" wire:model='rateid'>
+                      <input type="text" class="form-control" name="example-text-input" placeholder="rate in decimal" wire:model='rate_decimal'>
                       @error('subject')
                           <span class="text-danger">
                               {{ $message }}
                           </span>
                       @enderror
                   </div>
-
                   <div class="mb-3">
-                      <label class="form-label">Amount</label>
-                      <input type="text" class="form-control" name="example-text-input" placeholder="500" wire:model='amount'>
-                      @error('amount')
-                          <span class="text-danger">
-                              {{ $message }}
-                          </span>
-                      @enderror
-                  </div>
-
-                  <div class="mb-3">
-                      <label class="form-label">Description</label>
-                      <textarea type="text" class="form-control" cols="5" rows="5" wire:model='description'>Enter description...
-                      </textarea>
-                      @error('description')
-                          <span class="text-danger">
-                              {{ $message }}
-                          </span>
-                      @enderror
-                  </div>
-                  <div class="mb-3">
-                      <button type="submit" class="btn btn-primary">Post Annoucement</button>
+                      <button type="submit" class="btn btn-primary">Edit Rate</button>
                   </div>
                 </div>
               </div>

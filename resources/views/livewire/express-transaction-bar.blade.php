@@ -1,4 +1,4 @@
-{{-- <div wire:poll>
+<!-- <div wire:poll>
     @if ($props->pop_path !== '' & $props->seller_payment_approval !== 0)
         @if ($props->buyer_disbursment_confirmation == 1)
             <div class="progressbar-wrapper px-0">
@@ -59,4 +59,4 @@
             </ul>
         </div>
     @endif
-</div> --}}
+</div> -->

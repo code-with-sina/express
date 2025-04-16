@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-6 py-4">
                         <span>
-                            {{ __('No account relations at the moment') }}
+                            {{ __('No account added at the moment') }}
                         </span>
                     </div>
                 </div> 

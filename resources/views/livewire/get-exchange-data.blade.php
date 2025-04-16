@@ -1,85 +1,9 @@
-{{-- <div>
 
-    @forelse ($props as $item)
-        <div class="col-md-12 mb-1">
-            <div class="card card-sm">
-                <div class="card-body">
-                <div class="row">
-                    <div class="col-3">
-                        <div class="row">
-                            <div class="col-12">
-                                Name
-                            </div>
-                            <div class="col-12">
-                                {{ $item->item }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="row">
-                            <div class="col-12">
-                                Pecentage
-                            </div>
-                            <div class="col-12">
-                                {{ $item->percntage }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="row">
-                            <div class="col-12">
-                                Status
-                            </div>
-                            <div class="col-12">
-                                {{ $item->active == 1 ? 'Active' : 'Not Active' }} 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="row">
-                            <div class="col-12">
-                                Icon
-                            </div>
-                            <div class="col-12">
-                                
-                                <img src="/storage/images/exchange_images/thumbnails/thumb_{{ $item->image_path }}" alt="" width="40px" class="" />
-                            </div>
-                        </div>
-                    
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-6">
-
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-outline-primary float-end" wire:click='deleteItem({{ $item->id }})'>Delete</button>
-                        <a href="{{ route('author.edit-exchange-item', $item->id) }}" class="btn btn-outline-primary float-end me-2">Edit</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @empty
-    <div class="col-md-12 mb-1">
-        <div class="card card-sm">
-            <div class="card-body">
-            <div class="alert alert-danger">
-                <p>No data found yet</p>
-            </div>
-            </div>
-        </div>
-    </div>
-    @endforelse
-    
-</div> --}}
 
 
 <div>
-    <div class="card">
-        <div class="card-body">
+    <div class="card px-0">
+        <div class="card-body px-0">
             <div class="table-responsive">
                 <table class="table table-vcenter card-table table-striped">
                     <thead>
@@ -126,6 +50,9 @@
                         @endforelse
                    </tbody>
              </table>
+            </div>
+            <div class="d-block my-2">
+                {{ $props->links('livewire::simple-bootstrap') }}
             </div>
         </div>
     </div>

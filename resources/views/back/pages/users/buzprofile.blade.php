@@ -13,9 +13,9 @@
                       <a class="nav-link  @if (url()->current() == route('users.verification')) active-active @endif  dashboard-inner-active-bar" href="{{ route('users.verification') }}">Verification </a>
                       
                   </div>
-                  <div class="col-4 col-lg-3">
+                  <!-- <div class="col-4 col-lg-3">
                      <a class="nav-link  @if (url()->current() == route('users.buzprofile')) active-active @endif dashboard-inner-active-bar" href="{{ route('users.buzprofile') }}">Business Profile</a> 
-                  </div>
+                  </div> -->
           </div>
           <div class="row">  
             <form class="px-0" method="post" action="{{ route('users.buzprofiles') }}" enctype='multipart/form-data'>
@@ -29,6 +29,11 @@
                           <div class="col-12 col-lg-10 p-0">
                               <div class="row m-0 p-0">
                                   <div class="col-8">
+                                        <p>
+                                            @if(session('status'))
+                                                {{ session('status')}}
+                                            @endif
+                                        </p>
                                         <label for="business-logo">
                                             @if( @$props->logo_path !== null )
                                                 <img src="/storage/images/business_profile/thumbnails/resized_{{ $props->logo_path }} " height="80px" width="100%"  class="rounded-3" id="businessProfileLogo" for="business-logo" />
@@ -83,15 +88,15 @@
                             @else
                             <select class="form-select dashboard-timer dashboard-activity-box" aria-label="Select Category" name="category">
                                 <option selected value="{{ $props->category ?? '' }}">{{ $props->category ?? '' }}</option>
-                                <option value="graphic-designs-others">Graphic Designs | others</option>
-                                <option value="marketing-others">Digital Marketing | others</option>
-                                <option value="writing-others">Writing | others</option>
-                                <option value="video-animation-others">Video and Animation | others</option>
-                                <option value="music-audio-others">Music | others</option>
-                                <option value="programming-others">Programming | others</option>
-                                <option value="photography-others">Photograpgy | others</option>
-                                <option value="businesses-others">Business | others</option>
-                                <option value="ai-services-others">AI Services  | others</option>
+                                <option value="graphic-designs-others">Graphic Designs</option>
+                                <option value="marketing-others">Digital Marketing</option>
+                                <option value="writing-others">Writing </option>
+                                <option value="video-animation-others">Video and Animation </option>
+                                <option value="music-audio-others">Music </option>
+                                <option value="programming-others">Programming </option>
+                                <option value="photography-others">Photograpgy </option>
+                                <option value="businesses-others">Business </option>
+                                <option value="ai-services-others">AI Services </option>
                               </select>
                             
                             @endif

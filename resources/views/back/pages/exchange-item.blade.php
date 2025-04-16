@@ -76,6 +76,12 @@
                                   <span  class="form-text error-text sub_item_error text-danger"></span>                          
                             </div>
                             <div class="mb-3">
+                                <label for="" class="form-label">Inner Seller's Note</label>
+                                <textarea 
+                                  class="form-control" name="inner_seller_note" id="" aria-describedby="helpId" placeholder="Seller's Note"></textarea>
+                                  <span  class="form-text error-text sub_item_error text-danger"></span>                          
+                            </div>
+                            <div class="mb-3">
                                 <label for="" class="form-label">Payment Confirmation Note</label>
                                 <textarea
                                   class="form-control" name="confirmation_note" id="" aria-describedby="helpId" placeholder="Payment Confirmation Note"></textarea>
@@ -97,6 +103,39 @@
                                         <label for="" class="form-label">Transaction Duration</label>
                                         <input type="number"
                                           class="form-control" name="duration" id="" aria-describedby="helpId" placeholder="30">
+                                          <span  class="form-text error-text sub_item_error text-danger"></span>   
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="" class="form-label">Amount From </label>
+                                        <input type="number"
+                                          class="form-control" name="price_from" id="" aria-describedby="helpId" placeholder="50" required>
+                                          <span  class="form-text error-text sub_item_error text-danger"></span>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="" class="form-label">Amount To</label>
+                                        <input type="number"
+                                          class="form-control" name="price_to" id="" aria-describedby="helpId" placeholder="500.." required>
+                                          <span  class="form-text error-text sub_item_error text-danger"></span>   
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="" class="form-label">Google Form (optional)</label>
+                                        <input type="text"
+                                          class="form-control" name="google_form" id="" aria-describedby="helpId" placeholder="50" value="{{ $item->price_from }}" >
+                                          <span  class="form-text error-text sub_item_error text-danger"></span>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="" class="form-label">WhatsApp (optional)</label>
+                                        <input type="text"
+                                          class="form-control" name="whatsapp" id="" aria-describedby="helpId" placeholder="500.." value="{{ $item->price_to }}">
                                           <span  class="form-text error-text sub_item_error text-danger"></span>   
                                     </div>
                                 </div>

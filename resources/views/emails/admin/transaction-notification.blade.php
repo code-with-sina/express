@@ -198,7 +198,7 @@
                         <tr class="header">
                             <td align="center" class="header-logo"
                                 style="text-align: center; display: block; margin-bottom: 20px; background-color: #181C1F;" valign="top" width="100%">
-                                <a href="../front-end/html/index.html">
+                                <a href="https://ratefy.co">
                                     <img src="{{  blogInfo()->blog_logo }}" class="main-logo" alt="Ratefy.co">
                                 </a>
                             </td>

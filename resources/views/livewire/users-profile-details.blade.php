@@ -2,7 +2,7 @@
     <div class="row p-2 p-sm-2 p-md-5">
         <div class="col-md-12">
             <h2>
-                Name and email
+                Basic Profile
             </h2>
         </div>
         <div class="row">
@@ -46,7 +46,7 @@
     <div class="row p-2 p-sm-2 p-md-5">
         <div class="col-md-12">
             <h2>
-                Name and email 
+                Basic Profile
             </h2>
         </div>
         <div class="row">

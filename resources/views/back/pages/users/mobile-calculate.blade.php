@@ -29,12 +29,12 @@
                                         <span class="dashboard-calculator-rate"> {{ $props->item}} </span>
                                     </div>
                                     <div class="col-12 my-0 py-0">
-                                        <span class="dashboard-calculator-subtitle">$499 or less</span>
+                                        <span class="dashboard-calculator-subtitle">{{ $props->sub_item}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-2  py-2 px-0">
-                                <span class="dashboard-currency-protocall float-start">Transfer</span>
+                                <span class="dashboard-currency-protocall float-start">{{ $props->labels }}</span>
                             </div>
                             <div class="col-5  py-1">
                                 @php
@@ -141,7 +141,6 @@
             <div class="contianer-fluid h-25 py-3 px-3 border border-secondary rounded-3 mb-3">
                 <p class="dashboard-calculator-seller-note-paragraph">
                     {{ $props->seller_note }}
-                   
                 </p>
             </div>
             <div class="row px-0 mx-0">

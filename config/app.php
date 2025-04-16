@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Africa/Lagos',
 
     /*
     |--------------------------------------------------------------------------
@@ -191,6 +191,7 @@ return [
         /*
          * Application Service Providers...
          */
+        App\Providers\PageViewServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\BroadcastServiceProvider::class,
@@ -223,7 +224,7 @@ return [
         '_ENV' => array_keys($_ENV),
         '_POST' => [
             'password',
-        ],      
+        ],
     ],
 
 ];

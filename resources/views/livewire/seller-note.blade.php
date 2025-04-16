@@ -12,10 +12,9 @@
             <p class="seller-param">
                 
                 @if ($props->pop_path !== '' && $props->seller_payment_approval == 1)
-                <span> {{ $props->express_binding_confirmatio_note }}</span>
+                    <span> {{ $props->express_binding_confirmation_note }} </span>
                 @else 
-                    <span>Payment tag: {{ auth()->user()->username }}</span>
-                    <br>
+
                     <span> {{ $props->express_binding_detail_note }}</span>
                 @endif
                 

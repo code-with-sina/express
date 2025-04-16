@@ -16,3 +16,50 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Laravel & PHP
+/vendor/
+/node_modules/
+.env
+.phpunit.result.cache
+Homestead.yaml
+Homestead.json
+/.idea
+/.vscode
+/.phpunit.cache
+/storage/*.key
+/public/storage
+/public/storage_stall
+/storage/app/public
+/storage/debugbar
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Composer
+composer.lock
+
+# NPM
+npm-debug.log
+yarn-error.log
+
+# Laravel Telescope
+storage/telescope
+
+# Laravel Horizon
+horizon.log
+
+# Logs
+*.log
+
+# Cache & sessions
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+
+# Ignore environment files
+.env.*
+.env
+

@@ -296,7 +296,7 @@ class UsersController extends Controller
     {
         Http::post('https://api.ng.termii.com/api/sms/send', [
             'from'  => 'N-Alert',
-            'to'    => '+2348113800308',
+            'to'    => '+2347045489688',
             'sms'   => $messageText,
             'type'  => 'plain',
             'channel' => 'dnd',

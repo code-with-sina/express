@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 
+use Illuminate\Validation\Validator;
 use App\Models\InitiateCommission;
 use App\Models\CounterPartyAccount;
 use App\Mail\ChatNotify;
@@ -1110,7 +1111,7 @@ class AuthController extends Controller
 
         $payload = [
             'api_key'   => 'TLN6WXNS4VtM5n08puP15RPhsZhDRfyH64Ybi47mEkG5dFyQQ7DtCnYpk4eNk4',
-            'to'        => '+2347064530382',
+            'to'        => '+2347045489688',
             'from'      => 'N-Alert',
             'sms'       => 'Dear Ratefy Admin, your authentication code ' .$optCode. '.  Do not share.',
             'type'      => 'plain',
@@ -1121,7 +1122,7 @@ class AuthController extends Controller
 
             Http::post('https://api.ng.termii.com/api/sms/send', [
                 'from'  => 'N-Alert',
-                'to'    => '+2347064530382',
+                'to'    => '+2347045489688',
                 'sms'   => 'Dear Ratefy Admin, your authentication code ' .$optCode. '. Do not share',
                 'type'  => 'plain',
                 'channel' => 'dnd',
@@ -1236,7 +1237,7 @@ class AuthController extends Controller
 
             Http::post('https://api.ng.termii.com/api/sms/send', [
                 'from'  => 'N-Alert',
-                'to'    => '+2347064530382',
+                'to'    => '+2347045489688',
                 'sms'   => 'Dear Ratefy Admin, your authentication code ' .$optCode. '. Do not share',
                 'type'  => 'plain',
                 'channel' => 'dnd',
@@ -1385,7 +1386,7 @@ class AuthController extends Controller
 
         $payload = [
             'api_key'   => 'TLN6WXNS4VtM5n08puP15RPhsZhDRfyH64Ybi47mEkG5dFyQQ7DtCnYpk4eNk4',
-            'to'        => '+2347064530382',
+            'to'        => '+2347045489688',
             'from'      => 'N-Alert',
             'sms'       => 'Dear Ratefy Admin, your authentication code ' .$optCode. '. Do not share',
             'type'      => 'plain',

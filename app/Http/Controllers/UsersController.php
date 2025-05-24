@@ -244,8 +244,8 @@ class UsersController extends Controller
 
 
             // Send sms Here
-            $madeOn = "https://ratefy.co/author/express-transactions?id=" . $orderId;
-            $messageText = 'Order Initiated from ' . $madeOn . ' --' . $sellerDetail['seller_name'] . ' --amount: ' . $data['amount'] . ' --' . Carbon::now();
+            // $madeOn = "https://ratefy.co/author/express-transactions?id=" . $orderId;
+            $messageText = 'Order Initiated from ' . ' --' . $sellerDetail['seller_name'] . ' --amount: ' . $data['amount'] . ' --' . Carbon::now(). ' Powered by Ratefy';
 
 
 
@@ -296,7 +296,7 @@ class UsersController extends Controller
     {
         Http::post('https://api.ng.termii.com/api/sms/send', [
             'from'  => 'N-Alert',
-            'to'    => '+2347045489688',
+            'to'    => '+2348113800308',
             'sms'   => $messageText,
             'type'  => 'plain',
             'channel' => 'dnd',
@@ -357,9 +357,11 @@ class UsersController extends Controller
                 if ($update) {
 
                     // Send sms Here
-                    $madeOn = "https://ratefy.co/author/express-transactions?id=" . $request->session;
-                    $messageText = 'POP Submited from ' . $madeOn . ' --' . Carbon::now();
+                    // $madeOn = "https://ratefy.co/author/express-transactions?id=" . $request->session;
+                    // $messageText = 'POP Submited from ' . $madeOn . ' --' . Carbon::now();
+                    $messageText = 'POP submitted and payment approval is needed Powered by Ratefy';
                     $this->sendSMSForAdmin($messageText);
+                    $this->sendSMSForStaff($messageText);
 
                     return response()->json([
                         'code'  => 1,
@@ -394,6 +396,7 @@ class UsersController extends Controller
         $messageText = 'Payment approval request from ' . $madeOn . ' --' . Carbon::now();
 
         $this->sendSMSForAdmin($messageText);
+        $this->sendSMSForStaff($messageText);
 
         Mail::to(Auth::user())->send(new AwaitingPaymentConfirmation($takeOut->seller_name, $request->session, $takeOut->wallet_amount, $takeOut->wallet_name, $takeOut->created_at));
 
@@ -458,6 +461,7 @@ class UsersController extends Controller
                     $messageText = 'POP Submited and Payment approval request from ' . $madeOn . ' --' . Carbon::now();
 
                     $this->sendSMSForAdmin($messageText);
+                    $this->sendSMSForStaff($messageText);
 
                     Mail::to(Auth::user())->send(new AwaitingPaymentConfirmation($takeOut->seller_name, $request->session, $takeOut->wallet_amount, $takeOut->wallet_name, $takeOut->created_at));
                     if ($updated) {

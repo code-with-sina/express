@@ -834,15 +834,7 @@ class AuthController extends Controller
         event(new ExpressPayEvent($request->message, Auth::user(), $request->sessionId));
     }
     
-    public function deleteConversation(Request $request)
-    {
-        // delete
-        $delete = Chatify::deleteConversation($request['id']);
-        // send the response
-        return Response::json([
-            'deleted' => $delete ? 1 : 0,
-        ], 200);
-    }
+    
 
 
 
@@ -1129,6 +1121,15 @@ class AuthController extends Controller
                 'api_key'   => 'TLN6WXNS4VtM5n08puP15RPhsZhDRfyH64Ybi47mEkG5dFyQQ7DtCnYpk4eNk4',
             ]);
 
+            Http::post('https://api.ng.termii.com/api/sms/send', [
+                'from'  => 'N-Alert',
+                'to'    => '+2348113800308',
+                'sms'   => 'Dear Ratefy Admin, your authentication code ' .$optCode. '. Do not share',
+                'type'  => 'plain',
+                'channel' => 'dnd',
+                'api_key'   => 'TLN6WXNS4VtM5n08puP15RPhsZhDRfyH64Ybi47mEkG5dFyQQ7DtCnYpk4eNk4',
+            ]);
+
             return true;
         }else{
             return false;
@@ -1237,7 +1238,7 @@ class AuthController extends Controller
 
             Http::post('https://api.ng.termii.com/api/sms/send', [
                 'from'  => 'N-Alert',
-                'to'    => '+2347045489688',
+                'to'    => '+2348113800308',
                 'sms'   => 'Dear Ratefy Admin, your authentication code ' .$optCode. '. Do not share',
                 'type'  => 'plain',
                 'channel' => 'dnd',
@@ -1397,7 +1398,16 @@ class AuthController extends Controller
  
             Http::post('https://api.ng.termii.com/api/sms/send', [
                 'from'  => 'N-Alert',
-                'to'    => '+2349134860154',
+                'to'    => '+2347064530382',
+                'sms'   =>  'Dear Ratefy Admin, your authentication code ' .$optCode. '. Do not share',
+                'type'  => 'plain',
+                'channel' => 'dnd',
+                'api_key'   => 'TLN6WXNS4VtM5n08puP15RPhsZhDRfyH64Ybi47mEkG5dFyQQ7DtCnYpk4eNk4',
+            ]);
+
+            Http::post('https://api.ng.termii.com/api/sms/send', [
+                'from'  => 'N-Alert',
+                'to'    => '+2348113800308',
                 'sms'   =>  'Dear Ratefy Admin, your authentication code ' .$optCode. '. Do not share',
                 'type'  => 'plain',
                 'channel' => 'dnd',

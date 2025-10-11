@@ -8,7 +8,7 @@
           What are you <span class="ratefy-gradient">Exchanging Today?</span>
       </h4>
       <p class="auth-dashboard-lead-paragraph">
-          Select the exchange rate offer that suits best, Calculate your potential receiving amount, Sell you fund safely and instantly.
+          Select the exchange rate offer that suits best, Calculate your potential receiving amount, Sell your fund safely and instantly.
       </p>
       <livewire:users-dashboard-exchange-rate>
   </div>

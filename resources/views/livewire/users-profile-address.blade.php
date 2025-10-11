@@ -20,16 +20,7 @@
                 </span>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 dashboard-timer">
-                <p>Landmark (optional 1)</p>
-            </div>
-            <div class="col-md-4">
-                <p> {{ __($props->landmark ?? '') }} </p>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </div>
+        
         <div class="row">
             <div class="col-md-4 dashboard-timer">
                 <p>City / Town</p>
@@ -95,16 +86,7 @@
             </span>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4 dashboard-timer">
-            <p>Landmark (optional 1)</p>
-        </div>
-        <div class="col-md-4">
-            <p> {{ __($props->landmark ?? '') }} </p>
-        </div>
-        <div class="col-md-4">
-        </div>
-    </div>
+    
     <div class="row">
         <div class="col-md-4 dashboard-timer">
             <p>CityTown</p>
@@ -117,7 +99,7 @@
     </div>
     <div class="row">
         <div class="col-md-4 dashboard-timer">
-            <p>City / Town</p>
+            <p>State</p>
         </div>
         <div class="col-md-4">
             <p> {{ __($props->state ?? '' ) }} </p>

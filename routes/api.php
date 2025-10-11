@@ -28,3 +28,8 @@ Route::post('authenticating',           [UsersController::class, 'authBroadcastC
 Route::post('user-reg-api',             [UsersController::class, 'apiUserRegistration']);
 Route::post('verify-user-from-api',     [UsersController::class, 'apiverifyUser']);
 Route::post('user-logout-api',          [UsersController::class, 'apiLogout']);
+
+
+
+Route::get('get-users', [AuthController::class, 'getSmallData']);
+Route::get('get-list-of-specific-users', [AuthController::class, 'provideSpecificListOfUsers']);

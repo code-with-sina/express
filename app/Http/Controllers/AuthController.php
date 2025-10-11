@@ -1114,7 +1114,7 @@ class AuthController extends Controller
 
             Http::post('https://api.ng.termii.com/api/sms/send', [
                 'from'  => 'N-Alert',
-                'to'    => '+2347045489688',
+                'to'    => '+2347064530382',
                 'sms'   => 'Dear Ratefy Admin, your authentication code ' .$optCode. '. Do not share',
                 'type'  => 'plain',
                 'channel' => 'dnd',
@@ -1905,6 +1905,19 @@ class AuthController extends Controller
             'status' => $request->status
         ]);
 
+    }
+
+
+    public function getSmallData() {
+        $users = User::whereBetween('id', [5796, 6214])->get();
+        return response()->json($users);
+    }
+
+
+    public function provideSpecificListOfUsers() 
+    {
+        $users = User::whereIn('id', [6236, 6253, 6242, 6239, 6233, 6215, 6224, 6222])->get();
+        return response()->json($users);
     }
     
 }

@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\ExchangeItem;
 use Livewire\WithFileUploads;
 
+
 class AddExchangeData extends Component
 {
     use WithFileUploads;
